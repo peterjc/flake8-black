@@ -15,6 +15,7 @@ black_prefix = "BLK"
 
 
 def find_diff_start(old_src, new_src):
+    """Find line number and column number where text first differs."""
     old_lines = old_src.split("\n")
     new_lines = new_src.split("\n")
 
@@ -28,7 +29,7 @@ def find_diff_start(old_src, new_src):
                 return line, col
         # Difference at the end of the line...
         return line, min(len(old), len(new))
-    # Difference at the of the file...
+    # Difference at the end of the file...
     return min(len(old_lines), min(new_lines)), 0
 
 
