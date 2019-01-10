@@ -1,5 +1,5 @@
-flake-black
-===========
+flake8-black
+============
 
 .. image:: https://img.shields.io/pypi/v/flake8-black.svg
    :alt: Released on the Python Package Index (PyPI)
