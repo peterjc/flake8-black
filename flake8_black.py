@@ -32,10 +32,10 @@ def find_diff_start(old_src, new_src):
             if old[col] != new[col]:
                 return line, col
         # Difference at the end of the line...
-        return line, min(len(old), len(new)) + 1
+        return line, min(len(old), len(new))
     # Difference at the of the file...
-    return min(len(old_lines), min(new_lines)) + 1, 0
-            
+    return min(len(old_lines), min(new_lines)), 0
+
 
 class BlackStyleChecker(object):
     """Checker of Python code using black."""
@@ -55,22 +55,40 @@ class BlackStyleChecker(object):
         except Exception as err:
             self.source = None
             self.err = err
-        # TODO, read flake8 config
-        self.line_length = 79
+
+    @classmethod
+    def add_options(cls, parser):
+        # Currently don't have any of our own options, but have this
+        # stub defined in order to activate parse_options being called.
+        # parser.add_option(
+        #     '--black', action='store_true', parse_from_config=True,
+        #     help="Should we run the black checks? (Off by default)"
+        # )
+        pass
+
+    @classmethod
+    def parse_options(cls, options):
+        #cls.black_check = bool(options.black)
+        cls.line_length = int(options.max_line_length)
+        #raise ValueError("Line length %r" % options.max_line_length)
 
     def run(self):
         """Use black to check code style."""
-        # Is there any reason not to call load_source here?
+        #if not self.black_check:
+        #    return
         msg = None
         line = 0
         col = 0
         if self.err is not None:
             assert self.source is None
             msg = black_prefix + "900 Failed to load file: %s" % self.err
-            yield 0, 0, msg, type(self)
         elif not self.source:
             # Empty file, nothing to change
-            pass
+            return
+        #elif not self.black_check:
+            msg = "997 Black disabled"  # hack!
+        elif not self.line_length:
+            msg = "998 Could not access flake8 line length setting"
         else:
             # Call black...
             try:
@@ -80,7 +98,7 @@ class BlackStyleChecker(object):
                     line_length=self.line_length,
                     fast=False)
             except black.NothingChanged:
-                pass
+                return
             except black.InvalidInput:
                 msg = "901 Invalid input"
             except Exception as e:
@@ -89,10 +107,10 @@ class BlackStyleChecker(object):
                 assert new_code != self.source, \
                     "Black made changes without raising NothingChanged"
                 line, col = find_diff_start(self.source, new_code)
+                line += 1  # Strange as col seems to be zero based?
                 msg = "100 Black would make changes"
-        if msg:
-            # If we don't know the line or column numbers, leaving as zero.
-            yield line, col, black_prefix + msg, type(self)
+        # If we don't know the line or column numbers, leaving as zero.
+        yield line, col, black_prefix + msg, type(self)
 
     def load_source(self):
         """Load the source for the specified file."""
