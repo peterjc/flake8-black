@@ -1,0 +1,6 @@
+# This is a plugin for flake8, so we require that.
+# Our prefix is not single letter, so we need v3:
+flake8 >= 3.0.0
+
+# We need black, which in turn needs Python 3.6+
+black

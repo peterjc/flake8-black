@@ -1,0 +1,24 @@
+#Ignore the build directory (and its sub-directories):
+build
+
+#Ignore the distribution directory
+dist
+
+#Ignore another Python specific build folder:
+flake8_black.egg-info/
+ 
+#Ignore backup files from some Unix editors,
+*~
+*.swp
+*.bak
+
+#Ignore patches and any original files created by patch command
+*.diff
+*.orig
+*.rej
+
+#Ignore these hidden files from Mac OS X
+.DS_Store
+
+#Ignore hidden files from Dolphin window manager
+.directory
