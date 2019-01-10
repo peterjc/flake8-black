@@ -4,16 +4,12 @@ This is a plugin for the tool flake8 tool for checking Python
 soucre code using the tool black.
 """
 
-import logging
-
 import black
 
 from flake8 import utils as stdin_utils
 
 
 __version__ = "0.0.1"
-
-log = logging.getLogger(__name__)
 
 black_prefix = "BLK"
 
