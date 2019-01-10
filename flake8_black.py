@@ -48,6 +48,7 @@ class BlackStyleChecker(object):
 
     @classmethod
     def add_options(cls, parser):
+        """Add any plugin configuration options to flake8."""
         # Currently don't have any of our own options, but have this
         # stub defined in order to activate parse_options being called.
         # parser.add_option(
@@ -58,6 +59,7 @@ class BlackStyleChecker(object):
 
     @classmethod
     def parse_options(cls, options):
+        """Parse the configuration options given to flake8."""
         # cls.black_check = bool(options.black)
         cls.line_length = int(options.max_line_length)
         # raise ValueError("Line length %r" % options.max_line_length)
