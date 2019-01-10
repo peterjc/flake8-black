@@ -43,9 +43,9 @@ class BlackStyleChecker(object):
     name = "black"
     version = __version__
 
-    STDIN_NAMES = set(['stdin', '-', '(none)', None])
+    STDIN_NAMES = set(["stdin", "-", "(none)", None])
 
-    def __init__(self, tree, filename='(none)', builtins=None):
+    def __init__(self, tree, filename="(none)", builtins=None):
         """Initialise."""
         self.tree = tree
         self.filename = filename
@@ -68,13 +68,13 @@ class BlackStyleChecker(object):
 
     @classmethod
     def parse_options(cls, options):
-        #cls.black_check = bool(options.black)
+        # cls.black_check = bool(options.black)
         cls.line_length = int(options.max_line_length)
-        #raise ValueError("Line length %r" % options.max_line_length)
+        # raise ValueError("Line length %r" % options.max_line_length)
 
     def run(self):
         """Use black to check code style."""
-        #if not self.black_check:
+        # if not self.black_check:
         #    return
         msg = None
         line = 0
@@ -85,7 +85,7 @@ class BlackStyleChecker(object):
         elif not self.source:
             # Empty file, nothing to change
             return
-        #elif not self.black_check:
+            # elif not self.black_check:
             msg = "997 Black disabled"  # hack!
         elif not self.line_length:
             msg = "998 Could not access flake8 line length setting"
@@ -94,9 +94,8 @@ class BlackStyleChecker(object):
             try:
                 # Set mode?
                 new_code = black.format_file_contents(
-                    self.source,
-                    line_length=self.line_length,
-                    fast=False)
+                    self.source, line_length=self.line_length, fast=False
+                )
             except black.NothingChanged:
                 return
             except black.InvalidInput:
@@ -104,8 +103,9 @@ class BlackStyleChecker(object):
             except Exception as e:
                 msg = "999 Unexpected exception: %s" % e
             else:
-                assert new_code != self.source, \
-                    "Black made changes without raising NothingChanged"
+                assert (
+                    new_code != self.source
+                ), "Black made changes without raising NothingChanged"
                 line, col = find_diff_start(self.source, new_code)
                 line += 1  # Strange as col seems to be zero based?
                 msg = "100 Black would make changes"
@@ -115,12 +115,11 @@ class BlackStyleChecker(object):
     def load_source(self):
         """Load the source for the specified file."""
         if self.filename in self.STDIN_NAMES:
-            self.filename = 'stdin'
+            self.filename = "stdin"
             if sys.version_info[0] < 3:
                 self.source = sys.stdin.read()
             else:
-                self.source = io.TextIOWrapper(sys.stdin.buffer,
-                                               errors='ignore').read()
+                self.source = io.TextIOWrapper(sys.stdin.buffer, errors="ignore").read()
         else:
             with tokenize.open(self.filename) as handle:
                 self.source = handle.read()
