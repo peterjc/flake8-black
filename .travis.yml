@@ -1,0 +1,34 @@
+# This is a special configuration file to run tests on Travis-CI via
+# GitHub notifications when changes are committed.
+#
+# For technical details, see http://travis-ci.org/
+
+language: python
+cache: pip
+jobs:
+  include:
+    - stage: test
+      python: "3.6"
+
+before_install:
+ - "if grep '\t' *.py *.rst; then echo 'Tabs are bad, please use four spaces.'; false; fi"
+ - "if grep -n -r '[[:blank:]]$' *.py *.rst; then echo 'Please remove trailing whitespace.'; false; fi"
+ - pip install --upgrade pip setuptools
+ - pip install flake8 flake8-docstrings restructuredtext-lint black
+ - echo "Using restructuredtext-lint to check documentation"
+ - restructuredtext-lint *.rst
+ - echo "Using flake8 to check Python code"
+ - flake8 *.py
+ - echo "Using black to check Python code"
+ - black --check *.py
+
+install:
+ - python setup.py install
+
+script:
+ - echo "On this machine \$LANG=$LANG"
+ - echo "Checking our own code passes"
+ - flake8 --select BLK *.py
+
+notifications:
+  email: false
