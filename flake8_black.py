@@ -4,12 +4,11 @@ This is a plugin for the tool flake8 tool for checking Python
 soucre code using the tool black.
 """
 
-import io
 import logging
-import sys
-import tokenize
 
 import black
+
+from flake8 import utils as stdin_utils
 
 
 __version__ = "0.0.1"
@@ -49,12 +48,6 @@ class BlackStyleChecker(object):
         """Initialise."""
         self.tree = tree
         self.filename = filename
-        try:
-            self.load_source()
-            self.err = None
-        except Exception as err:
-            self.source = None
-            self.err = err
 
     @classmethod
     def add_options(cls, parser):
@@ -79,22 +72,29 @@ class BlackStyleChecker(object):
         msg = None
         line = 0
         col = 0
-        if self.err is not None:
-            assert self.source is None
-            msg = black_prefix + "900 Failed to load file: %s" % self.err
-        elif not self.source:
-            # Empty file, nothing to change
+
+        try:
+            if self.filename in self.STDIN_NAMES:
+                self.filename = "stdin"
+                source = stdin_utils.stdin_get_value()
+            else:
+                with open(self.filename, "rb") as buf:
+                    source, _, _ = black.decode_bytes(buf.read())
+        except Exception as e:
+            source = ""
+            msg = "900 Failed to load file: %s" % e
+
+        if not source and not msg:
+            # Empty file (good)
             return
-            # elif not self.black_check:
-            msg = "997 Black disabled"  # hack!
         elif not self.line_length:
             msg = "998 Could not access flake8 line length setting"
-        else:
+        elif source:
             # Call black...
             try:
                 # Set mode?
                 new_code = black.format_file_contents(
-                    self.source, line_length=self.line_length, fast=False
+                    source, line_length=self.line_length, fast=False
                 )
             except black.NothingChanged:
                 return
@@ -104,22 +104,10 @@ class BlackStyleChecker(object):
                 msg = "999 Unexpected exception: %s" % e
             else:
                 assert (
-                    new_code != self.source
+                    new_code != source
                 ), "Black made changes without raising NothingChanged"
-                line, col = find_diff_start(self.source, new_code)
+                line, col = find_diff_start(source, new_code)
                 line += 1  # Strange as col seems to be zero based?
                 msg = "100 Black would make changes"
         # If we don't know the line or column numbers, leaving as zero.
         yield line, col, black_prefix + msg, type(self)
-
-    def load_source(self):
-        """Load the source for the specified file."""
-        if self.filename in self.STDIN_NAMES:
-            self.filename = "stdin"
-            if sys.version_info[0] < 3:
-                self.source = sys.stdin.read()
-            else:
-                self.source = io.TextIOWrapper(sys.stdin.buffer, errors="ignore").read()
-        else:
-            with tokenize.open(self.filename) as handle:
-                self.source = handle.read()
