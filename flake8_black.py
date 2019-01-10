@@ -87,7 +87,7 @@ class BlackStyleChecker(object):
             # Empty file (good)
             return
         elif not self.line_length:
-            msg = "998 Could not access flake8 line length setting"
+            msg = "998 Could not access flake8 line length setting."
         elif source:
             # Call black...
             try:
@@ -98,7 +98,7 @@ class BlackStyleChecker(object):
             except black.NothingChanged:
                 return
             except black.InvalidInput:
-                msg = "901 Invalid input"
+                msg = "901 Invalid input."
             except Exception as e:
                 msg = "999 Unexpected exception: %s" % e
             else:
@@ -107,6 +107,6 @@ class BlackStyleChecker(object):
                 ), "Black made changes without raising NothingChanged"
                 line, col = find_diff_start(source, new_code)
                 line += 1  # Strange as col seems to be zero based?
-                msg = "100 Black would make changes"
+                msg = "100 Black would make changes."
         # If we don't know the line or column numbers, leaving as zero.
         yield line, col, black_prefix + msg, type(self)

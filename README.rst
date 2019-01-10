@@ -40,8 +40,8 @@ as its prefix.
 ====== =======================================================================
 Code   Description
 ------ -----------------------------------------------------------------------
-BLK100 Black would edit your Python file(s).
-BLK900 Error invoking Black.
+BLK100 Black would make changes.
+BLK9## Internal error (various).
 ====== =======================================================================
 
 
