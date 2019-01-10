@@ -75,7 +75,7 @@ for example in your ``.flake8``  configuration::
     max-line-length = 88
     extend-ignore =
         # See https://github.com/PyCQA/pycodestyle/issues/373
-        E203,    
+        E203,
 
 In order not to trigger flake8's ``E501 line too long`` errors, the plugin
 passes the ``flake8`` maximum line length when it calls ``black``,
