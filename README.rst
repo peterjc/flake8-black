@@ -7,9 +7,9 @@ flake-black
 .. image:: https://img.shields.io/travis/peterjc/flake8-black/master.svg
    :alt: Testing with TravisCI
    :target: https://travis-ci.org/peterjc/flake8-black/branches
-.. image:: https://landscape.io/github/peterjc/flake8-black/master/landscape.svg?style=flat
-   :alt: Landscape Code Metrics
-   :target: https://landscape.io/github/peterjc/flake8-black/
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :alt: Code style: black
+   :target: https://github.com/ambv/black
 
 Introduction
 ------------
