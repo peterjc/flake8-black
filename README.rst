@@ -34,7 +34,7 @@ Flake8 Validation codes
 
 Early versions of flake8 assumed a single character prefix for the validation
 codes, which became problematic with collisions in the plugin ecosystem. Since
-v3.0, flake8 has supported longer prefixes therefore this plugin uses ``BLK``
+v3.0, flake8 has supported longer prefixes, therefore this plugin uses ``BLK``
 as its prefix.
 
 ====== =======================================================================
