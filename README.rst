@@ -21,7 +21,7 @@ the Python Package Index (PyPI):
 
 - https://pypi.python.org/pypi/flake8-black
 
-Black, "The Uncompromising Code Formatter", is normally run to edit your
+Black, *"The Uncompromising Code Formatter"*, is normally run to edit your
 Python code in place to match their coding style, a strict subset of the
 `PEP 8 style guide <https://www.python.org/dev/peps/pep-0008/>`_.
 
