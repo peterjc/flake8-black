@@ -88,8 +88,8 @@ equivalent to doing ``black -l 88 --check *.py`` at the command line.
 
 Note currently ``pycodestyle`` gives false positives on the spaces ``black``
 uses for slices, which ``flake8`` reports as ``E203: whitespace before ':'``.
-Until this is fixed, and ``flake8`` is updated, we suggest disabling this
-style check.
+Until `pyflakes issue 373 <https://github.com/PyCQA/pycodestyle/issues/373>`_
+is fixed, and ``flake8`` is updated, we suggest disabling this style check.
 
 
 Version History
