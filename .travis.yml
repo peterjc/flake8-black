@@ -29,9 +29,9 @@ script:
  - echo "On this machine \$LANG=$LANG"
  - echo "Checking our own code passes"
  - flake8 --select BLK *.py
- - echo "Checking we can parse our valid test cases"
+ - echo "Checking we report no errors on these test cases"
  - flake8 --select BLK tests/test_cases/*.py
- - echo "Check we report expected black changes"
+ - echo "Checking we report expected black changes"
  - diff tests/test_changes/hello_world.txt <(flake8 --select BLK tests/test_changes/hello_world.py)
 
 notifications:
