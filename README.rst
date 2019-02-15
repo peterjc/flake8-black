@@ -53,7 +53,7 @@ you will not get an additional BLK error.
 Installation and usage
 ----------------------
 
-Python 3.6 or later is required to run ``black``, so that is recommanded but
+Python 3.6 or later is required to run ``black``, so that is recommanded, but
 ``black`` can be used on Python code written for older versions of Python.
 
 Install ``flake8-black`` using ``pip``, which should install ``flake8`` and
