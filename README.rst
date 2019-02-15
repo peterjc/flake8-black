@@ -44,6 +44,11 @@ BLK100 Black would make changes.
 BLK9## Internal error (various).
 ====== =======================================================================
 
+Note that if your Python code has a syntax error, ``black --check ...`` would
+report this as an error. Likewise ``flake8 ...`` will by default report the
+syntax error, but importantly it does not seem to then call the plugins, so
+you will not get an additional BLK error.
+
 
 Installation and usage
 ----------------------
@@ -94,6 +99,7 @@ Version History
 Version Released   Changes
 ------- ---------- -----------------------------------------------------------
 v0.0.1  2019-01-10 - Initial public release.
+v0.0.2  2019-02-15 - Document syntax error behaviour (no BLK error reported).
 ======= ========== ===========================================================
 
 
