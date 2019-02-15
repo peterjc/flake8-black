@@ -1,0 +1,1 @@
+tests/test_changes/hello_world.py:12:6: BLK100 Black would make changes.
