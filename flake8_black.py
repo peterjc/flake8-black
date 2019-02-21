@@ -9,7 +9,7 @@ import black
 from flake8 import utils as stdin_utils
 
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 black_prefix = "BLK"
 
