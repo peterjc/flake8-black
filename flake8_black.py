@@ -30,7 +30,7 @@ def find_diff_start(old_src, new_src):
         # Difference at the end of the line...
         return line, min(len(old), len(new))
     # Difference at the end of the file...
-    return min(len(old_lines), min(new_lines)), 0
+    return min(len(old_lines), len(new_lines)), 0
 
 
 class BlackStyleChecker(object):
