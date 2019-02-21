@@ -33,6 +33,7 @@ script:
  - flake8 --select BLK tests/test_cases/*.py
  - echo "Checking we report expected black changes"
  - diff tests/test_changes/hello_world.txt <(flake8 --select BLK tests/test_changes/hello_world.py)
+ - diff tests/test_changes/hello_world_EOF.txt <(flake8 --select BLK tests/test_changes/hello_world_EOF.py)
 
 notifications:
   email: false
