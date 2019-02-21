@@ -101,7 +101,7 @@ Version Released   Changes
 v0.0.1  2019-01-10 - Initial public release.
 v0.0.2  2019-02-15 - Document syntax error behaviour (no BLK error reported).
 v0.0.3  2019-02-21 - Bug fix where ``W292 no newline at end of file`` applies,
-                     Contribution from
+                     contribution from
                      `Sapphire Becker <https://github.com/sapphire-janrain>`_.
 ======= ========== ===========================================================
 
@@ -117,9 +117,3 @@ To make a new release once tested locally and on TravisCI::
     $ python setup.py sdist --formats=gztar
     $ twine upload dist/flake8-black-X.Y.Z.tar.gz
     $ git push origin master --tags
-
-TODO
-----
-
-- Define different error codes based on what changes black would make?
-- Create a full test suite and use this for continuous integration.
