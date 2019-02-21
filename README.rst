@@ -47,7 +47,7 @@ BLK9## Internal error (various).
 Note that if your Python code has a syntax error, ``black --check ...`` would
 report this as an error. Likewise ``flake8 ...`` will by default report the
 syntax error, but importantly it does not seem to then call the plugins, so
-you will not get an additional BLK error.
+you will *not* get an additional ``BLK`` error.
 
 
 Installation and usage
