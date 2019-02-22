@@ -9,6 +9,7 @@ flake8-black
    :target: https://travis-ci.org/peterjc/flake8-black/branches
 .. image:: https://img.shields.io/pypi/dm/flake8-black.svg
    :alt: PyPI downloads
+   :target: https://pypistats.org/packages/flake8-black
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :alt: Code style: black
    :target: https://github.com/ambv/black
