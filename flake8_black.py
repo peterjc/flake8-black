@@ -9,7 +9,7 @@ import black
 from flake8 import utils as stdin_utils
 
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 
 black_prefix = "BLK"
 
@@ -63,6 +63,12 @@ class BlackStyleChecker(object):
         # cls.black_check = bool(options.black)
         cls.line_length = int(options.max_line_length)
         # raise ValueError("Line length %r" % options.max_line_length)
+        try:
+            cls.file_mode = black.FileMode(line_length=cls.line_length)
+        except TypeError as e:
+            # Legacy mode
+            assert "got an unexpected keyword argument" in str(e), e
+            cls.file_mode = None
 
     def run(self):
         """Use black to check code style."""
@@ -91,10 +97,16 @@ class BlackStyleChecker(object):
         elif source:
             # Call black...
             try:
-                # Set mode?
-                new_code = black.format_file_contents(
-                    source, line_length=self.line_length, fast=False
-                )
+                if self.file_mode is None:
+                    # Legacy version of black, 18.9b0 or older
+                    new_code = black.format_file_contents(
+                        source, line_length=self.line_length, fast=False
+                    )
+                else:
+                    # For black 19.3b0 or later
+                    new_code = black.format_file_contents(
+                        source, mode=self.file_mode, fast=False
+                    )
             except black.NothingChanged:
                 return
             except black.InvalidInput:
