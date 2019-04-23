@@ -53,8 +53,8 @@ syntax error, but importantly it does not seem to then call the plugins, so
 you will *not* get an additional ``BLK`` error.
 
 
-Installation and usage
-----------------------
+Installation
+------------
 
 Python 3.6 or later is required to run ``black``, so that is recommended, but
 ``black`` can be used on Python code written for older versions of Python.
@@ -74,8 +74,12 @@ You can request only the ``BLK`` codes be shown using::
 
     $ flake8 --select BLK example.py
 
+
+Configuration
+-------------
+
 We recommend using the following settings in your ``flake8`` configuration,
-for example in your ``.flake8``  configuration::
+for example in your ``.flake8``  file::
 
     [flake8]
     # Recommend matching the black default line length of 88,
@@ -93,6 +97,15 @@ Note currently ``pycodestyle`` gives false positives on the spaces ``black``
 uses for slices, which ``flake8`` reports as ``E203: whitespace before ':'``.
 Until `pyflakes issue 373 <https://github.com/PyCQA/pycodestyle/issues/373>`_
 is fixed, and ``flake8`` is updated, we suggest disabling this style check.
+
+Ignoring validation codes
+-------------------------
+
+Using the flake8 no-quality-assurance pragma comment is not recommended
+(e.g. adding ``# noqa: BLK100`` to the first line black would change).
+Instead use the black pragma comments ``# fmt: off`` at the start, and
+``# fmt: on`` at the end, of any region of your code which should not be
+changed.
 
 
 Version History
