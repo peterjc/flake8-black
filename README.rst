@@ -12,14 +12,14 @@ flake8-black
    :target: https://pypistats.org/packages/flake8-black
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :alt: Code style: black
-   :target: https://github.com/ambv/black
+   :target: https://github.com/python/black
 
 Introduction
 ------------
 
 This is an MIT licensed `flake8 <https://gitlab.com/pycqa/flake8>`_ plugin
 for validating Python code style with the command line code formatting tool
-`black <https://github.com/ambv/black>`_. It is available to install from
+`black <https://github.com/python/black>`_. It is available to install from
 the Python Package Index (PyPI):
 
 - https://pypi.python.org/pypi/flake8-black
