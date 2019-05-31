@@ -1,0 +1,9 @@
+[flake8]
+
+# Plugin flake8-black will pass this value to black
+max-line-length = 120
+
+extend-ignore =
+    # See https://github.com/PyCQA/pycodestyle/issues/373
+    # flake8/pycodechecker give false positives on black code
+    E203,

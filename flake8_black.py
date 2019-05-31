@@ -3,8 +3,10 @@
 This is a plugin for the tool flake8 tool for checking Python
 soucre code using the tool black.
 """
+from pathlib import Path
 
 import black
+import toml
 
 from flake8 import utils as stdin_utils
 
@@ -63,12 +65,57 @@ class BlackStyleChecker(object):
         # cls.black_check = bool(options.black)
         cls.line_length = int(options.max_line_length)
         # raise ValueError("Line length %r" % options.max_line_length)
+
+    def _load_black_config(self):
+        source_path = (
+            self.filename
+            if self.filename not in self.STDIN_NAMES
+            else Path.cwd().as_posix()
+        )
+        project_root = black.find_project_root((Path(source_path),))
+        path = project_root / "pyproject.toml"
+
+        if path.is_file():
+            pyproject_toml = toml.load(str(path))
+            config = pyproject_toml.get("tool", {}).get("black", {})
+            return {k.replace("--", "").replace("-", "_"): v for k, v in config.items()}
+        return None
+
+    @property
+    def _file_mode(self):
         try:
-            cls.file_mode = black.FileMode(line_length=cls.line_length)
+            target_versions = set()
+            black_line_length = 88  # default black line-length value
+            skip_string_normalization = False
+
+            black_config = self._load_black_config()
+            if black_config:
+                target_versions = {
+                    black.TargetVersion[val.upper()]
+                    for val in black_config.get("target_version", [])
+                }
+                black_line_length = black_config.get("line_length", black_line_length)
+                skip_string_normalization = black_config.get(
+                    "skip_string_normalization", False
+                )
+
+            if self.line_length != black_line_length:
+                raise ValueError(
+                    "conflict in line-length param - "
+                    "flake8 use {} and black use {}".format(
+                        self.line_length, black_line_length
+                    )
+                )
+
+            return black.FileMode(
+                target_versions=target_versions,
+                line_length=self.line_length,
+                string_normalization=not skip_string_normalization,
+            )
         except TypeError as e:
             # Legacy mode
             assert "got an unexpected keyword argument" in str(e), e
-            cls.file_mode = None
+            return None
 
     def run(self):
         """Use black to check code style."""
@@ -97,7 +144,7 @@ class BlackStyleChecker(object):
         elif source:
             # Call black...
             try:
-                if self.file_mode is None:
+                if self._file_mode is None:
                     # Legacy version of black, 18.9b0 or older
                     new_code = black.format_file_contents(
                         source, line_length=self.line_length, fast=False
@@ -105,12 +152,14 @@ class BlackStyleChecker(object):
                 else:
                     # For black 19.3b0 or later
                     new_code = black.format_file_contents(
-                        source, mode=self.file_mode, fast=False
+                        source, mode=self._file_mode, fast=False
                     )
             except black.NothingChanged:
                 return
             except black.InvalidInput:
                 msg = "901 Invalid input."
+            except ValueError as e:
+                msg = "997 Configuration conflict: %s" % e
             except Exception as e:
                 msg = "999 Unexpected exception: %s" % e
             else:
