@@ -11,7 +11,7 @@ import toml
 from flake8 import utils as stdin_utils
 
 
-__version__ = "0.0.4"
+__version__ = "0.1.0"
 
 black_prefix = "BLK"
 
@@ -35,12 +35,6 @@ def find_diff_start(old_src, new_src):
     return min(len(old_lines), len(new_lines)), 0
 
 
-class ConfigConflictLineLen(Exception):
-    """Conflict between line length in flake8 and black settings."""
-
-    pass
-
-
 class BlackStyleChecker(object):
     """Checker of Python code using black."""
 
@@ -53,24 +47,8 @@ class BlackStyleChecker(object):
         """Initialise."""
         self.tree = tree
         self.filename = filename
-
-    @classmethod
-    def add_options(cls, parser):
-        """Add any plugin configuration options to flake8."""
-        # Currently don't have any of our own options, but have this
-        # stub defined in order to activate parse_options being called.
-        # parser.add_option(
-        #     '--black', action='store_true', parse_from_config=True,
-        #     help="Should we run the black checks? (Off by default)"
-        # )
-        pass
-
-    @classmethod
-    def parse_options(cls, options):
-        """Parse the configuration options given to flake8."""
-        # cls.black_check = bool(options.black)
-        cls.line_length = int(options.max_line_length)
-        # raise ValueError("Line length %r" % options.max_line_length)
+        # Following for legacy versions of black only:
+        self.line_length = 88
 
     def _load_black_config(self):
         source_path = (
@@ -89,42 +67,37 @@ class BlackStyleChecker(object):
 
     @property
     def _file_mode(self):
+        black_line_length = 88  # default black line-length value
+        target_versions = set()
+        skip_string_normalization = False
+
+        black_config = self._load_black_config()
+        if black_config:
+            target_versions = {
+                black.TargetVersion[val.upper()]
+                for val in black_config.get("target_version", [])
+            }
+            black_line_length = black_config.get("line_length", black_line_length)
+            skip_string_normalization = black_config.get(
+                "skip_string_normalization", False
+            )
+        # Save line length for legacy mode
+        self.line_length = black_line_length
         try:
-            target_versions = set()
-            black_line_length = 88  # default black line-length value
-            skip_string_normalization = False
-
-            black_config = self._load_black_config()
-            if black_config:
-                target_versions = {
-                    black.TargetVersion[val.upper()]
-                    for val in black_config.get("target_version", [])
-                }
-                black_line_length = black_config.get("line_length", black_line_length)
-                skip_string_normalization = black_config.get(
-                    "skip_string_normalization", False
-                )
-
-            if self.line_length != black_line_length:
-                raise ConfigConflictLineLen(
-                    "Conflicting line length in flake8 and black settings "
-                    "(%i vs %i)." % (self.line_length, black_line_length)
-                )
-
+            # Recent versions of black have a FileMode object
+            # which includes the line length setting
             return black.FileMode(
                 target_versions=target_versions,
                 line_length=self.line_length,
                 string_normalization=not skip_string_normalization,
             )
         except TypeError as e:
-            # Legacy mode
+            # Legacy mode for old versions of black
             assert "got an unexpected keyword argument" in str(e), e
             return None
 
     def run(self):
         """Use black to check code style."""
-        # if not self.black_check:
-        #    return
         msg = None
         line = 0
         col = 0
@@ -143,8 +116,6 @@ class BlackStyleChecker(object):
         if not source and not msg:
             # Empty file (good)
             return
-        elif not self.line_length:
-            msg = "998 Could not access flake8 line length setting."
         elif source:
             # Call black...
             try:
@@ -162,8 +133,6 @@ class BlackStyleChecker(object):
                 return
             except black.InvalidInput:
                 msg = "901 Invalid input."
-            except ConfigConflictLineLen as e:
-                msg = "800 %s" % e
             except Exception as e:
                 msg = "999 Unexpected exception: %s" % e
             else:
