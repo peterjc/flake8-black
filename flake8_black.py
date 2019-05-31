@@ -3,8 +3,10 @@
 This is a plugin for the tool flake8 tool for checking Python
 soucre code using the tool black.
 """
+from pathlib import Path
 
 import black
+import toml
 
 from flake8 import utils as stdin_utils
 
@@ -63,12 +65,44 @@ class BlackStyleChecker(object):
         # cls.black_check = bool(options.black)
         cls.line_length = int(options.max_line_length)
         # raise ValueError("Line length %r" % options.max_line_length)
+
+    def _load_black_config(self):
+        source_path = (
+            self.filename
+            if self.filename not in self.STDIN_NAMES
+            else Path.cwd().as_posix()
+        )
+        project_root = black.find_project_root((Path(source_path),))
+        path = project_root / "pyproject.toml"
+
+        if path.is_file():
+            pyproject_toml = toml.load(str(path))
+            config = pyproject_toml.get("tool", {}).get("black", {})
+            return {k.replace("--", "").replace("-", "_"): v for k, v in config.items()}
+        return None
+
+    @property
+    def file_mode(self):
         try:
-            cls.file_mode = black.FileMode(line_length=cls.line_length)
+            black_config = self._load_black_config()
+            if black_config:
+                target_versions = {
+                    black.TargetVersion[val.upper()]
+                    for val in black_config.get("target_version", [])
+                }
+
+                return black.FileMode(
+                    target_versions=target_versions,
+                    line_length=self.line_length or black_config.get("line_length", 88),
+                    string_normalization=not black_config.get(
+                        "skip_string_normalization", False
+                    ),
+                )
+            return black.FileMode(line_length=self.line_length)
         except TypeError as e:
             # Legacy mode
             assert "got an unexpected keyword argument" in str(e), e
-            cls.file_mode = None
+            return None
 
     def run(self):
         """Use black to check code style."""
