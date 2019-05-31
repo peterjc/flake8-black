@@ -36,7 +36,7 @@ script:
  - echo "Checking we report expected black changes"
  - diff tests/test_changes/hello_world.txt <(flake8 --select BLK tests/test_changes/hello_world.py)
  - diff tests/test_changes/hello_world_EOF.txt <(flake8 --select BLK tests/test_changes/hello_world_EOF.py)
- - diff tests/conflicting_configurations/hello.txt <(flake8 --select BLK tests/conflicting_configurations/*.py)
+ - diff tests/conflicting_configurations/output.txt <(flake8 --select BLK tests/conflicting_configurations/*.py | sort)
 
 notifications:
   email: false

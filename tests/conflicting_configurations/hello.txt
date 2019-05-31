@@ -1,1 +1,0 @@
-tests/conflicting_configurations/hello.py:0:1: BLK800 Conflicting line length in flake8 and black settings (120 vs 90).
