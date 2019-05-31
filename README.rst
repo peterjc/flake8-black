@@ -41,15 +41,13 @@ v3.0, flake8 has supported longer prefixes, therefore this plugin uses ``BLK``
 as its prefix.
 
 ====== =======================================================================
-Code   Description
+Code   Description (*and notes*)
 ------ -----------------------------------------------------------------------
 BLK100 Black would make changes.
-BLK8## Configuration error (various):
-BLK800 Conflicting line length in flake8 and black settings.
-BLK9## Internal error (various):
+BLK9## Internal error (*various, listed below*):
 BLK900 Failed to load file: ...
 BLK901 Invalid input.
-BLK998 Could not access flake8 line length setting.
+BLK998 Could not access flake8 line length setting (*no longer used*).
 BLK999 Unexpected exception.
 ====== =======================================================================
 
@@ -84,28 +82,37 @@ You can request only the ``BLK`` codes be shown using::
 Configuration
 -------------
 
+We assume you are familiar with `flake8 configuration
+<http://flake8.pycqa.org/en/latest/user/configuration.html>`_ and
+`black configuration
+<https://black.readthedocs.io/en/stable/pyproject_toml.html>`_.
+
 We recommend using the following settings in your ``flake8`` configuration,
-for example in your ``.flake8``  file::
+for example in your ``.flake8``, ``setup.cfg``, or ``tox.ini`` file::
 
     [flake8]
-    # Recommend matching the black default line length of 88,
-    # rather than the flake8 default of 79:
+    # Recommend matching the black line length (default 88),
+    # rather than using the flake8 default of 79:
     max-line-length = 88
     extend-ignore =
         # See https://github.com/PyCQA/pycodestyle/issues/373
         E203,
-
-In order not to trigger flake8's ``E501 line too long`` errors, the plugin
-passes the ``flake8`` maximum line length when it calls ``black``,
-equivalent to doing ``black -l 88 --check *.py`` at the command line.
 
 Note currently ``pycodestyle`` gives false positives on the spaces ``black``
 uses for slices, which ``flake8`` reports as ``E203: whitespace before ':'``.
 Until `pyflakes issue 373 <https://github.com/PyCQA/pycodestyle/issues/373>`_
 is fixed, and ``flake8`` is updated, we suggest disabling this style check.
 
-If you are using custom value of maximum line length parameter, check that black configuration (pyproject.toml) and
-flake8 configuration (.flake8) use the same value. Otherwise, you will get BLK997 error.
+If a ``pyproject.toml`` file is found, the plugin will look at the following
+``black`` settings:
+
+* ``target_version``
+* ``skip_string_normalization``
+* ``line_length``
+
+The plugin does *NOT* consider the ``black`` settings for ``include`` and
+``exclude``, which would duplicate functionality built into ``flake8``.
+
 
 Ignoring validation codes
 -------------------------
@@ -123,6 +130,12 @@ Version History
 ======= ============ ===========================================================
 Version Release date   Changes
 ------- ------------ -----------------------------------------------------------
+v0.1.0  *pending*    - Looks in ``black`` settings file ``pyproject.toml`` for
+                       * ``target_version``
+                       * ``skip_string_normalization``
+                       * ``line_length``
+                       Contribution from `Alex <https://github.com/ADKosm>`_.
+                     - WARNING: Now ignores ``flake8`` max-line-length setting.
 v0.0.4  2019-03-15   - Supports black 19.3b0 which changed a function call.
 v0.0.3  2019-02-21   - Bug fix when ``W292 no newline at end of file`` applies,
                        contribution from
