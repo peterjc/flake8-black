@@ -44,8 +44,12 @@ as its prefix.
 Code   Description
 ------ -----------------------------------------------------------------------
 BLK100 Black would make changes.
-BLK997 Conflicting configurations.
-BLK9## Internal error (various).
+BLK8## Configuration error (various):
+BLK800 Conflicting line length in flake8 and black settings.
+BLK9## Internal error (various):
+BLK901 Invalid input.
+BLK998 Could not access flake8 line length setting.
+BLK999 Unexpected exception.
 ====== =======================================================================
 
 Note that if your Python code has a syntax error, ``black --check ...`` would

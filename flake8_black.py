@@ -35,6 +35,12 @@ def find_diff_start(old_src, new_src):
     return min(len(old_lines), len(new_lines)), 0
 
 
+class ConfigConflictLineLen(Exception):
+    """Conflict between line length in flake8 and black settings."""
+
+    pass
+
+
 class BlackStyleChecker(object):
     """Checker of Python code using black."""
 
@@ -100,11 +106,9 @@ class BlackStyleChecker(object):
                 )
 
             if self.line_length != black_line_length:
-                raise ValueError(
-                    "conflict in line-length param - "
-                    "flake8 use {} and black use {}".format(
-                        self.line_length, black_line_length
-                    )
+                raise ConfigConflictLineLen(
+                    "Conflicting line length in flake8 and black settings "
+                    "(%i vs %i)." % (self.line_length, black_line_length)
                 )
 
             return black.FileMode(
@@ -158,8 +162,8 @@ class BlackStyleChecker(object):
                 return
             except black.InvalidInput:
                 msg = "901 Invalid input."
-            except ValueError as e:
-                msg = "997 Configuration conflict: %s" % e
+            except ConfigConflictLineLen as e:
+                msg = "800 %s" % e
             except Exception as e:
                 msg = "999 Unexpected exception: %s" % e
             else:
