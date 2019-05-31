@@ -44,6 +44,7 @@ as its prefix.
 Code   Description
 ------ -----------------------------------------------------------------------
 BLK100 Black would make changes.
+BLK997 Conflicting configurations.
 BLK9## Internal error (various).
 ====== =======================================================================
 
@@ -97,6 +98,9 @@ Note currently ``pycodestyle`` gives false positives on the spaces ``black``
 uses for slices, which ``flake8`` reports as ``E203: whitespace before ':'``.
 Until `pyflakes issue 373 <https://github.com/PyCQA/pycodestyle/issues/373>`_
 is fixed, and ``flake8`` is updated, we suggest disabling this style check.
+
+If you are using custom value of maximum line length parameter, check that black configuration (pyproject.toml) and
+flake8 configuration (.flake8) use the same value. Otherwise, you will get BLK997 error.
 
 Ignoring validation codes
 -------------------------
