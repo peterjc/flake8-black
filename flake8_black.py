@@ -91,11 +91,11 @@ class BlackStyleChecker(object):
     def _file_mode(self):
         try:
             target_versions = set()
-            black_line_length = 88  # default black line-length value
             skip_string_normalization = False
 
             black_config = self._load_black_config()
             if black_config:
+                black_line_length = 88  # default black line-length value
                 target_versions = {
                     black.TargetVersion[val.upper()]
                     for val in black_config.get("target_version", [])
@@ -104,12 +104,11 @@ class BlackStyleChecker(object):
                 skip_string_normalization = black_config.get(
                     "skip_string_normalization", False
                 )
-
-            if self.line_length != black_line_length:
-                raise ConfigConflictLineLen(
-                    "Conflicting line length in flake8 and black settings "
-                    "(%i vs %i)." % (self.line_length, black_line_length)
-                )
+                if self.line_length != black_line_length:
+                    raise ConfigConflictLineLen(
+                        "Conflicting line length in flake8 and black settings "
+                        "(%i vs %i)." % (self.line_length, black_line_length)
+                    )
 
             return black.FileMode(
                 target_versions=target_versions,
