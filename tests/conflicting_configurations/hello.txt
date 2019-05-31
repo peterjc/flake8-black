@@ -1,0 +1,1 @@
+tests/conflicting_configurations/hello.py:0:1: BLK997 Configuration conflict: conflict in line-length param - flake8 use 120 and black use 90

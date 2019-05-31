@@ -84,21 +84,34 @@ class BlackStyleChecker(object):
     @property
     def _file_mode(self):
         try:
+            target_versions = set()
+            black_line_length = 88  # default black line-length value
+            skip_string_normalization = False
+
             black_config = self._load_black_config()
             if black_config:
                 target_versions = {
                     black.TargetVersion[val.upper()]
                     for val in black_config.get("target_version", [])
                 }
-
-                return black.FileMode(
-                    target_versions=target_versions,
-                    line_length=self.line_length or black_config.get("line_length", 88),
-                    string_normalization=not black_config.get(
-                        "skip_string_normalization", False
-                    ),
+                black_line_length = black_config.get("line_length", black_line_length)
+                skip_string_normalization = black_config.get(
+                    "skip_string_normalization", False
                 )
-            return black.FileMode(line_length=self.line_length)
+
+            if self.line_length != black_line_length:
+                raise ValueError(
+                    "conflict in line-length param - "
+                    "flake8 use {} and black use {}".format(
+                        self.line_length, black_line_length
+                    )
+                )
+
+            return black.FileMode(
+                target_versions=target_versions,
+                line_length=self.line_length,
+                string_normalization=not skip_string_normalization,
+            )
         except TypeError as e:
             # Legacy mode
             assert "got an unexpected keyword argument" in str(e), e
@@ -145,6 +158,8 @@ class BlackStyleChecker(object):
                 return
             except black.InvalidInput:
                 msg = "901 Invalid input."
+            except ValueError as e:
+                msg = "997 Configuration conflict: %s" % e
             except Exception as e:
                 msg = "999 Unexpected exception: %s" % e
             else:
