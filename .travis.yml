@@ -32,7 +32,7 @@ script:
  - echo "Checking we report no errors on these test cases"
  - flake8 --select BLK tests/test_cases/*.py
  - flake8 --select BLK tests/with_pyproject_toml/*.py
- - flake8 --select BLK test/non_conflicting_configurations/*.py
+ - flake8 --select BLK tests/non_conflicting_configurations/*.py
  - echo "Checking we report expected black changes"
  - diff tests/test_changes/hello_world.txt <(flake8 --select BLK tests/test_changes/hello_world.py)
  - diff tests/test_changes/hello_world_EOF.txt <(flake8 --select BLK tests/test_changes/hello_world_EOF.py)
