@@ -11,7 +11,7 @@ import toml
 from flake8 import utils as stdin_utils
 
 
-__version__ = "0.0.4"
+__version__ = "0.1.0"
 
 black_prefix = "BLK"
 
