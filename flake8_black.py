@@ -47,7 +47,7 @@ class BlackStyleChecker(object):
     name = "black"
     version = __version__
 
-    STDIN_NAMES = set(["stdin", "-", "(none)", None])
+    STDIN_NAMES = {"stdin", "-", "(none)", None}
 
     def __init__(self, tree, filename="(none)", builtins=None):
         """Initialise."""

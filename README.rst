@@ -122,12 +122,12 @@ Version History
 ======= ============ ===========================================================
 Version Release date   Changes
 ------- ------------ -----------------------------------------------------------
-v0.0.1  2019-01-10   - Initial public release.
-v0.0.2  2019-02-15   - Document syntax error behaviour (no BLK error reported).
+v0.0.4  2019-03-15   - Supports black 19.3b0 which changed a function call.
 v0.0.3  2019-02-21   - Bug fix when ``W292 no newline at end of file`` applies,
                        contribution from
                        `Sapphire Becker <https://github.com/sapphire-janrain>`_.
-v0.0.4  2019-03-15   - Supports black 19.3b0 which changed a function call.
+v0.0.2  2019-02-15   - Document syntax error behaviour (no BLK error reported).
+v0.0.1  2019-01-10   - Initial public release.
 ======= ============ ===========================================================
 
 
