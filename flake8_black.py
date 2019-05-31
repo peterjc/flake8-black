@@ -82,7 +82,7 @@ class BlackStyleChecker(object):
         return None
 
     @property
-    def file_mode(self):
+    def _file_mode(self):
         try:
             black_config = self._load_black_config()
             if black_config:
@@ -131,7 +131,7 @@ class BlackStyleChecker(object):
         elif source:
             # Call black...
             try:
-                if self.file_mode is None:
+                if self._file_mode is None:
                     # Legacy version of black, 18.9b0 or older
                     new_code = black.format_file_contents(
                         source, line_length=self.line_length, fast=False
@@ -139,7 +139,7 @@ class BlackStyleChecker(object):
                 else:
                     # For black 19.3b0 or later
                     new_code = black.format_file_contents(
-                        source, mode=self.file_mode, fast=False
+                        source, mode=self._file_mode, fast=False
                     )
             except black.NothingChanged:
                 return
