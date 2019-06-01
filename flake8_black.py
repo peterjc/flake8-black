@@ -47,10 +47,10 @@ class BlackStyleChecker(object):
         """Initialise."""
         self.tree = tree
         self.filename = filename
-        # Following for legacy versions of black only:
-        self.file_mode = 0  # was: black.FileMode.AUTO_DETECT
         self.line_length = 88
-        # See property self._file_mode for new black versions
+        # Following for legacy versions of black only,
+        # see property self._file_mode for new black versions:
+        self.file_mode = 0  # was: black.FileMode.AUTO_DETECT
 
     def _load_black_config(self):
         source_path = (
@@ -69,7 +69,6 @@ class BlackStyleChecker(object):
 
     @property
     def _file_mode(self):
-        black_line_length = 88  # default black line-length value
         target_versions = set()
         skip_string_normalization = False
 
@@ -79,13 +78,12 @@ class BlackStyleChecker(object):
                 black.TargetVersion[val.upper()]
                 for val in black_config.get("target_version", [])
             }
-            black_line_length = black_config.get("line_length", black_line_length)
+            self.line_length = black_config.get("line_length", self.line_length)
             skip_string_normalization = black_config.get(
                 "skip_string_normalization", False
             )
-        # Save line length for legacy mode
-        self.line_length = black_line_length
         if skip_string_normalization:
+            # Used with older versions of black:
             self.file_mode |= 4  # was black.FileMode.NO_STRING_NORMALIZATION
         try:
             # Recent versions of black have a FileMode object
