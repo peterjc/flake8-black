@@ -48,7 +48,9 @@ class BlackStyleChecker(object):
         self.tree = tree
         self.filename = filename
         # Following for legacy versions of black only:
+        self.file_mode = 0  # was: black.FileMode.AUTO_DETECT
         self.line_length = 88
+        # See property self._file_mode for new black versions
 
     def _load_black_config(self):
         source_path = (
@@ -83,6 +85,8 @@ class BlackStyleChecker(object):
             )
         # Save line length for legacy mode
         self.line_length = black_line_length
+        if skip_string_normalization:
+            self.file_mode |= 4  # was black.FileMode.NO_STRING_NORMALIZATION
         try:
             # Recent versions of black have a FileMode object
             # which includes the line length setting
@@ -122,7 +126,10 @@ class BlackStyleChecker(object):
                 if self._file_mode is None:
                     # Legacy version of black, 18.9b0 or older
                     new_code = black.format_file_contents(
-                        source, line_length=self.line_length, fast=False
+                        source,
+                        line_length=self.line_length,
+                        fast=False,
+                        mode=black.FileMode(self.file_mode),
                     )
                 else:
                     # For black 19.3b0 or later
