@@ -47,6 +47,7 @@ BLK100 Black would make changes.
 BLK8## Configuration error (various):
 BLK800 Conflicting line length in flake8 and black settings.
 BLK9## Internal error (various):
+BLK900 Failed to load file: ...
 BLK901 Invalid input.
 BLK998 Could not access flake8 line length setting.
 BLK999 Unexpected exception.
