@@ -130,11 +130,8 @@ Version History
 ======= ============ ===========================================================
 Version Release date   Changes
 ------- ------------ -----------------------------------------------------------
-v0.1.0  *pending*    - Looks in ``black`` settings file ``pyproject.toml`` for:
-                        * ``target_version``
-                        * ``skip_string_normalization``
-                        * ``line_length``
-                       Contribution from `Alex <https://github.com/ADKosm>`_.
+v0.1.0  *pending*    - Uses ``black`` settings from ``pyproject.toml``,
+                       contribution from `Alex <https://github.com/ADKosm>`_.
                      - WARNING: Now ignores ``flake8`` max-line-length setting.
 v0.0.4  2019-03-15   - Supports black 19.3b0 which changed a function call.
 v0.0.3  2019-02-21   - Bug fix when ``W292 no newline at end of file`` applies,
