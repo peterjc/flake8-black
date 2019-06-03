@@ -47,7 +47,7 @@ class BlackStyleChecker(object):
         """Initialise."""
         self.tree = tree
         self.filename = filename
-        self.line_length = 88
+        self.line_length = black.DEFAULT_LINE_LENGTH  # Expect to be 88
         # Following for legacy versions of black only,
         # see property self._file_mode for new black versions:
         self.file_mode = 0  # was: black.FileMode.AUTO_DETECT
