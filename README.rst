@@ -110,9 +110,6 @@ If a ``pyproject.toml`` file is found, the plugin will look at the following
 * ``skip_string_normalization``
 * ``line_length``
 
-The plugin does *NOT* consider the ``black`` settings for ``include`` and
-``exclude``, which would duplicate functionality built into ``flake8``.
-
 
 Ignoring validation codes
 -------------------------
@@ -124,13 +121,22 @@ Instead use the black pragma comments ``# fmt: off`` at the start, and
 changed.
 
 
+Ignoring files
+--------------
+
+The plugin does *NOT* currently consider the ``black`` settings ``include``
+and ``exclude``, so if you have certain Python files which you do not use
+with ``black`` and have told it to ignore, you will *also* need to tell
+``flake8`` to ignore them (e.g. using ``exclude`` or ``per-file-ignores``).
+
+
 Version History
 ---------------
 
 ======= ============ ===========================================================
 Version Release date   Changes
 ------- ------------ -----------------------------------------------------------
-v0.1.0  *pending*    - Uses ``black`` settings from ``pyproject.toml``,
+v0.1.0  2019-06-03   - Uses main ``black`` settings from ``pyproject.toml``,
                        contribution from `Alex <https://github.com/ADKosm>`_.
                      - WARNING: Now ignores ``flake8`` max-line-length setting.
 v0.0.4  2019-03-15   - Supports black 19.3b0 which changed a function call.
