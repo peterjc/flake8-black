@@ -4,6 +4,9 @@ flake8-black
 .. image:: https://img.shields.io/pypi/v/flake8-black.svg
    :alt: Released on the Python Package Index (PyPI)
    :target: https://pypi.python.org/pypi/flake8-black
+.. image:: https://img.shields.io/conda/vn/conda-forge/flake8-black.svg
+   :alt: Released on Conda
+   :target: https://anaconda.org/bioconda/flake8-black  
 .. image:: https://img.shields.io/travis/peterjc/flake8-black/master.svg
    :alt: Testing with TravisCI
    :target: https://travis-ci.org/peterjc/flake8-black/branches
@@ -160,3 +163,9 @@ To make a new release once tested locally and on TravisCI::
     $ python setup.py sdist --formats=gztar
     $ twine upload dist/flake8-black-X.Y.Z.tar.gz
     $ git push origin master --tags
+
+Once that is done, you can update the `flake8-black conda-forge recipe
+<https://github.com/conda-forge/flake8-black-feedstock/blob/master/recipe/meta.yaml>`_
+with a pull request. Typically all that needs changing is the version number
+and the SHA256 checksum (which you can simply copy from the `PyPI download
+files page <https://pypi.org/project/flake8-black/#files>`_).
