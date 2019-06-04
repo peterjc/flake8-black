@@ -66,10 +66,15 @@ Installation
 Python 3.6 or later is required to run ``black``, so that is recommended, but
 ``black`` can be used on Python code written for older versions of Python.
 
-Install ``flake8-black`` using ``pip``, which should install ``flake8`` and
-``black`` as well if not already present::
+You can install ``flake8-black`` using ``pip``, which should install ``flake8``
+and ``black`` as well if not already present::
 
     $ pip install flake8-black
+
+Alternatively, if you are using the Anaconda packaging system, the following
+command will install the plugin with its dependencies::
+
+    $ conda install -c conda-forge flake8-black
 
 The new validator should be automatically included when using ``flake8`` which
 may now report additional validation codes starting with ``BLK`` (as defined
