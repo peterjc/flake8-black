@@ -6,7 +6,7 @@ flake8-black
    :target: https://pypi.python.org/pypi/flake8-black
 .. image:: https://img.shields.io/conda/vn/conda-forge/flake8-black.svg
    :alt: Released on Conda
-   :target: https://anaconda.org/conda-forge/flake8-black  
+   :target: https://anaconda.org/conda-forge/flake8-black
 .. image:: https://img.shields.io/travis/peterjc/flake8-black/master.svg
    :alt: Testing with TravisCI
    :target: https://travis-ci.org/peterjc/flake8-black/branches
