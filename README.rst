@@ -111,8 +111,8 @@ uses for slices, which ``flake8`` reports as ``E203: whitespace before ':'``.
 Until `pyflakes issue 373 <https://github.com/PyCQA/pycodestyle/issues/373>`_
 is fixed, and ``flake8`` is updated, we suggest disabling this style check.
 
-If a ``pyproject.toml`` file is found, the plugin will look at the following
-``black`` settings:
+Separately ``pyproject.toml`` is used for ``black`` configuration - if this
+file is found, the plugin will look at the following ``black`` settings:
 
 * ``target_version``
 * ``skip_string_normalization``
@@ -126,7 +126,7 @@ Using the flake8 no-quality-assurance pragma comment is not recommended
 (e.g. adding ``# noqa: BLK100`` to the first line black would change).
 Instead use the black pragma comments ``# fmt: off`` at the start, and
 ``# fmt: on`` at the end, of any region of your code which should not be
-changed.
+changed. Or, exlude the entire file by name (see below).
 
 
 Ignoring files
