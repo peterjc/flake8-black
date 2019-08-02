@@ -2,6 +2,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# Install testing requirements:
+#     pip install -r requirements-test.txt
+
 # Assumes in the tests/ directory
 
 echo "Checking we report no errors on these test cases"
@@ -16,5 +19,7 @@ flake8 --select BLK conflicting_configurations/*.py
 echo "Checking we report expected black changes"
 diff test_changes/hello_world.txt <(flake8 --select BLK test_changes/hello_world.py)
 diff test_changes/hello_world_EOF.txt <(flake8 --select BLK test_changes/hello_world_EOF.py)
+
+pytest -q
 
 echo "Tests passed."

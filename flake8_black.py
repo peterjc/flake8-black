@@ -15,6 +15,10 @@ __version__ = "0.1.0"
 
 black_prefix = "BLK"
 
+pyproject = "pyproject.toml"
+
+global_config_path = ".config/flake8-black"
+
 
 def find_diff_start(old_src, new_src):
     """Find line number and column number where text first differs."""
@@ -59,13 +63,21 @@ class BlackStyleChecker(object):
             else Path.cwd().as_posix()
         )
         project_root = black.find_project_root((Path(source_path),))
-        path = project_root / "pyproject.toml"
+        path = project_root / pyproject
 
+        config = self._load_from_path(path)
+
+        if not config:
+            other_path = Path.home() / global_config_path / pyproject
+            config = self._load_from_path(other_path)
+
+        return config
+
+    def _load_from_path(self, path):
         if path.is_file():
             pyproject_toml = toml.load(str(path))
             config = pyproject_toml.get("tool", {}).get("black", {})
             return {k.replace("--", "").replace("-", "_"): v for k, v in config.items()}
-        return None
 
     @property
     def _file_mode(self):

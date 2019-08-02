@@ -1,0 +1,5 @@
+# Additional requirements are only needed to run the test suite
+pytest>=5.0.0
+pyfakefs>=3.6
+-e .
+-r requirements.txt
