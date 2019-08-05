@@ -3,6 +3,8 @@
 This is a plugin for the tool flake8 tool for checking Python
 soucre code using the tool black.
 """
+from functools import lru_cache
+from os import path
 from pathlib import Path
 
 import black
@@ -52,17 +54,30 @@ class BlackStyleChecker(object):
         # see property self._file_mode for new black versions:
         self.file_mode = 0  # was: black.FileMode.AUTO_DETECT
 
-    def _load_black_config(self):
+    @property
+    @lru_cache()
+    def config_file(self):
+        """File path to the black configuration file."""
+        if self.flake8_black_config:
+            flake8_black_path = Path(self.flake8_black_config)
+
+            if self.flake8_config:
+                flake8_config_path = path.dirname(path.abspath(self.flake8_config))
+                return Path(flake8_config_path) / flake8_black_path
+
+            return flake8_black_path
+
         source_path = (
             self.filename
             if self.filename not in self.STDIN_NAMES
             else Path.cwd().as_posix()
         )
         project_root = black.find_project_root((Path(source_path),))
-        path = project_root / "pyproject.toml"
+        return project_root / "pyproject.toml"
 
-        if path.is_file():
-            pyproject_toml = toml.load(str(path))
+    def _load_black_config(self):
+        if self.config_file.is_file():
+            pyproject_toml = toml.load(str(self.config_file))
             config = pyproject_toml.get("tool", {}).get("black", {})
             return {k.replace("--", "").replace("-", "_"): v for k, v in config.items()}
         return None
@@ -97,6 +112,27 @@ class BlackStyleChecker(object):
             # Legacy mode for old versions of black
             assert "got an unexpected keyword argument" in str(e), e
             return None
+
+    @classmethod
+    def add_options(cls, parser):
+        """Adding black-config option."""
+        parser.add_option(
+            "--black-config",
+            default=None,
+            action="store",
+            type="string",
+            parse_from_config=True,
+            help=(
+                "Path to black configuration file"
+                "(overrides the default pyproject.toml)",
+            ),
+        )
+
+    @classmethod
+    def parse_options(cls, options):
+        """Adding black-config option."""
+        cls.flake8_black_config = options.black_config
+        cls.flake8_config = options.config
 
     def run(self):
         """Use black to check code style."""

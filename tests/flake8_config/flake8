@@ -1,0 +1,2 @@
+[flake8]
+black-config = ../with_pyproject_toml/pyproject.toml

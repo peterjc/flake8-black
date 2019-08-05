@@ -9,6 +9,7 @@ flake8 --select BLK test_cases/*.py
 flake8 --select BLK --max-line-length 50 test_cases/*.py
 flake8 --select BLK --max-line-length 90 test_cases/*.py
 flake8 --select BLK with_pyproject_toml/*.py
+flake8 --select BLK without_pyproject_toml/*.py --config=flake8_config/flake8
 flake8 --select BLK --max-line-length 88 with_pyproject_toml/
 flake8 --select BLK non_conflicting_configurations/*.py
 flake8 --select BLK conflicting_configurations/*.py
