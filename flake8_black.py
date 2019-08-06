@@ -122,10 +122,8 @@ class BlackStyleChecker(object):
             action="store",
             type="string",
             parse_from_config=True,
-            help=(
-                "Path to black configuration file"
-                "(overrides the default pyproject.toml)",
-            ),
+            help="Path to black configuration file "
+            "(overrides the default pyproject.toml)",
         )
 
     @classmethod
