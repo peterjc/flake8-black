@@ -3,7 +3,7 @@
 This is a plugin for the tool flake8 tool for checking Python
 soucre code using the tool black.
 """
-from functools import lru_cache
+
 from os import path
 from pathlib import Path
 
@@ -11,6 +11,7 @@ import black
 import toml
 
 from flake8 import utils as stdin_utils
+from flake8 import LOG
 
 
 __version__ = "0.1.1"
@@ -45,68 +46,101 @@ class BlackStyleChecker(object):
 
     STDIN_NAMES = {"stdin", "-", "(none)", None}
 
+    # Black settings
+    line_length = black.DEFAULT_LINE_LENGTH  # Expect to be 88
+    target_versions = set()
+    skip_string_normalization = False
+
+    # Which TOML have we loaded, and why?
+    toml_filename = None
+    toml_override = False
+
     def __init__(self, tree, filename="(none)", builtins=None):
         """Initialise."""
         self.tree = tree
         self.filename = filename
-        self.line_length = black.DEFAULT_LINE_LENGTH  # Expect to be 88
         # Following for legacy versions of black only,
         # see property self._file_mode for new black versions:
         self.file_mode = 0  # was: black.FileMode.AUTO_DETECT
 
-    @property
-    @lru_cache()
-    def config_file(self):
-        """File path to the black configuration file."""
-        if self.flake8_black_config:
-            flake8_black_path = Path(self.flake8_black_config)
-
-            if self.flake8_config:
-                flake8_config_path = path.dirname(path.abspath(self.flake8_config))
-                return Path(flake8_config_path) / flake8_black_path
-
-            return flake8_black_path
-
+    def _update_black_config(self):
+        """Find and load any local pyproject.toml with black config."""
         source_path = (
             self.filename
             if self.filename not in self.STDIN_NAMES
             else Path.cwd().as_posix()
         )
         project_root = black.find_project_root((Path(source_path),))
-        return project_root / "pyproject.toml"
+        path = project_root / "pyproject.toml"
 
-    def _load_black_config(self):
-        if self.config_file.is_file():
-            pyproject_toml = toml.load(str(self.config_file))
-            config = pyproject_toml.get("tool", {}).get("black", {})
-            return {k.replace("--", "").replace("-", "_"): v for k, v in config.items()}
-        return None
+        if path.is_file():
+            # Use this pyproject.toml for this python file,
+            # (unless configured with global override config)
+            self.load_black_toml(path, override=False)
+
+    @classmethod
+    def load_black_toml(cls, toml_filename, override=False):
+        """Load specified black configuration from TOML file."""
+        if not toml_filename:
+            if override:
+                cls.toml_filename = None
+                cls.toml_override = True
+            return
+        if cls.toml_filename == toml_filename:
+            LOG.info(
+                "flake8-black: already loaded black settings from %s", cls.toml_filename
+            )
+            return
+        elif override:
+            cls.toml_override = True
+            # Continue below...
+        elif cls.toml_filename:
+            LOG.info(
+                "flake8-black: ignoring %s in favour of %s",
+                toml_filename,
+                cls.toml_filename,
+            )
+            return
+        elif cls.toml_override:
+            LOG.info(
+                "flake8-black: ignoring %s as explicitly using no black config",
+                toml_filename,
+            )
+            return
+
+        LOG.info("flake8-black: loading black settings from %s", toml_filename)
+        cls.toml_filename = toml_filename
+        pyproject_toml = toml.load(str(toml_filename))
+        config = pyproject_toml.get("tool", {}).get("black", {})
+        black_config = {
+            k.replace("--", "").replace("-", "_"): v for k, v in config.items()
+        }
+
+        cls.target_versions = {
+            black.TargetVersion[val.upper()]
+            for val in black_config.get("target_version", [])
+        }
+        cls.line_length = black_config.get("line_length", cls.line_length)
+        cls.skip_string_normalization = black_config.get(
+            "skip_string_normalization", False
+        )
 
     @property
     def _file_mode(self):
-        target_versions = set()
-        skip_string_normalization = False
+        """Generate black.FileMode object (or set legacy alternative)."""
+        # Check for a local pyproject.toml
+        self._update_black_config()
 
-        black_config = self._load_black_config()
-        if black_config:
-            target_versions = {
-                black.TargetVersion[val.upper()]
-                for val in black_config.get("target_version", [])
-            }
-            self.line_length = black_config.get("line_length", self.line_length)
-            skip_string_normalization = black_config.get(
-                "skip_string_normalization", False
-            )
-        if skip_string_normalization:
+        if self.skip_string_normalization:
             # Used with older versions of black:
             self.file_mode |= 4  # was black.FileMode.NO_STRING_NORMALIZATION
         try:
             # Recent versions of black have a FileMode object
             # which includes the line length setting
             return black.FileMode(
-                target_versions=target_versions,
+                target_versions=self.target_versions,
                 line_length=self.line_length,
-                string_normalization=not skip_string_normalization,
+                string_normalization=not self.skip_string_normalization,
             )
         except TypeError as e:
             # Legacy mode for old versions of black
@@ -118,19 +152,49 @@ class BlackStyleChecker(object):
         """Adding black-config option."""
         parser.add_option(
             "--black-config",
-            default=None,
+            default="",
             action="store",
             type="string",
             parse_from_config=True,
             help="Path to black configuration file "
-            "(overrides the default pyproject.toml)",
+            "(overrides the default pyproject.toml; "
+            "use - to force using no config file)",
         )
 
     @classmethod
     def parse_options(cls, options):
         """Adding black-config option."""
-        cls.flake8_black_config = options.black_config
-        cls.flake8_config = options.config
+        # We have one and only one flake8 plugin configuration
+        if not options.black_config:
+            LOG.info("flake8-black: No black configuration set")
+            return
+        elif options.black_config == "-":
+            LOG.info("flake8-black: Explicitly using no black TOML file")
+            cls.load_black_toml(None, override=True)
+            return
+
+        # Validate the path setting - handling relative paths
+        black_config_path = Path(options.black_config)
+        if options.config:
+            # Assume black config path was via flake8 config file
+            base_path = Path(path.dirname(path.abspath(options.config)))
+            black_config_path = base_path / black_config_path
+        if not black_config_path.is_file():
+            raise ValueError(
+                "Plugin flake8-black could not find specified black config file: "
+                "--black-config %s" % black_config_path
+            )
+
+        # Now load the TOML file, and the black section within it
+        # This configuration is to override any local pyproject.toml
+        try:
+            cls.load_black_toml(black_config_path, override=True)
+        except toml.decoder.TomlDecodeError:
+            # Could raise BLK997, but view this as an abort condition
+            raise ValueError(
+                "Plugin flake8-black could not parse specified black config file: "
+                "--black-config %s" % black_config_path
+            )
 
     def run(self):
         """Use black to check code style."""
@@ -172,8 +236,10 @@ class BlackStyleChecker(object):
                 return
             except black.InvalidInput:
                 msg = "901 Invalid input."
-            except Exception as e:
-                msg = "999 Unexpected exception: %s" % e
+            except toml.decoder.TomlDecodeError:
+                msg = "997 Invalid TOML file: %s" % path.relpath(self.toml_filename)
+            except Exception as err:
+                msg = "999 Unexpected exception: %s" % err
             else:
                 assert (
                     new_code != source
