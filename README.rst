@@ -50,6 +50,7 @@ BLK100 Black would make changes.
 BLK9## Internal error (*various, listed below*):
 BLK900 Failed to load file: ...
 BLK901 Invalid input.
+BLK997 Invalid TOML file: ...
 BLK998 Could not access flake8 line length setting (*no longer used*).
 BLK999 Unexpected exception.
 ====== =======================================================================
@@ -146,7 +147,8 @@ Version Release date   Changes
 ------- ------------ -----------------------------------------------------------
 v0.1.1  2019-08-06   - Option to use a (global) black configuration file,
                        contribution from
-                       `Tomasz Grining <https://github.com/098799>`_.
+		       `Tomasz Grining <https://github.com/098799>`_.
+                     - New ``BLK997`` if can't parse ``pyproject.toml`` file.
 v0.1.0  2019-06-03   - Uses main ``black`` settings from ``pyproject.toml``,
                        contribution from `Alex <https://github.com/ADKosm>`_.
                      - WARNING: Now ignores ``flake8`` max-line-length setting.
