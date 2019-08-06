@@ -42,5 +42,7 @@ diff test_changes/hello_world.txt <(flake8 --select BLK test_changes/hello_world
 diff test_changes/hello_world_EOF.txt <(flake8 --select BLK test_changes/hello_world_EOF.py)
 diff test_changes/hello_world_EOF.txt <(flake8 --select BLK test_changes/hello_world_EOF.py --black-config '')
 diff with_bad_toml/hello_world.txt <(flake8 --select BLK with_bad_toml/hello_world.py)
+# Check with multiple files each gets a bad TOML message:
+diff with_bad_toml/with_bad_toml.txt <(flake8 --select BLK with_bad_toml/ | sort)
 
 echo "Tests passed."
