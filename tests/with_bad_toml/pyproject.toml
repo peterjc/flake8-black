@@ -1,0 +1,4 @@
+[tool.black]
+skip-string-normalization = true
+# This line is (a) in the wrong file, and (b) invalid syntax
+black-config=

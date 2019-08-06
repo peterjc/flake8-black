@@ -1,0 +1,1 @@
+with_bad_toml/hello_world.py:0:1: BLK997 Invalid TOML file: with_bad_toml/pyproject.toml
