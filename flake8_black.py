@@ -11,6 +11,7 @@ import black
 import toml
 
 from flake8 import utils as stdin_utils
+from flake8 import LOG
 
 
 __version__ = "0.1.1"
@@ -77,9 +78,12 @@ class BlackStyleChecker(object):
 
     def _load_black_config(self):
         if self.config_file.is_file():
+            LOG.info("flake8-black: Loading black config from %s" % self.config_file)
             pyproject_toml = toml.load(str(self.config_file))
             config = pyproject_toml.get("tool", {}).get("black", {})
             return {k.replace("--", "").replace("-", "_"): v for k, v in config.items()}
+        elif self.config_file:
+            LOG.info("flake8-black: Did not find %s" % self.config_file)
         return None
 
     @property
