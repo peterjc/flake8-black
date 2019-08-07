@@ -46,7 +46,7 @@ class BlackStyleChecker(object):
 
     STDIN_NAMES = {"stdin", "-", "(none)", None}
 
-    def __init__(self, tree, filename="(none)", builtins=None):
+    def __init__(self, tree, filename="(none)"):
         """Initialise."""
         self.tree = tree
         self.filename = filename

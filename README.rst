@@ -148,6 +148,7 @@ v0.1.1  *pending*    - Option to use a (global) black configuration file,
                        contribution from
                        `Tomasz Grining <https://github.com/098799>`_.
                      - Logs configuration files, use ``-v`` or ``--verbose``.
+                     - Fixed flake8 "builtins" parameter warning.
 v0.1.0  2019-06-03   - Uses main ``black`` settings from ``pyproject.toml``,
                        contribution from `Alex <https://github.com/ADKosm>`_.
                      - WARNING: Now ignores ``flake8`` max-line-length setting.
