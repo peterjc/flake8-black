@@ -144,7 +144,7 @@ Version History
 ======= ============ ===========================================================
 Version Release date   Changes
 ------- ------------ -----------------------------------------------------------
-v0.1.1  2019-08-06   - Option to use a (global) black configuration file,
+v0.1.1  *pending*    - Option to use a (global) black configuration file,
                        contribution from
                        `Tomasz Grining <https://github.com/098799>`_.
 v0.1.0  2019-06-03   - Uses main ``black`` settings from ``pyproject.toml``,
