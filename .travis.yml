@@ -21,6 +21,8 @@ before_install:
  - flake8 *.py
  - echo "Using black to check Python code"
  - black --check *.py
+ - echo "Using flake8 to check tests (with lots of exclusions)"
+ - flake8 tests/
 
 install:
  - python setup.py install
