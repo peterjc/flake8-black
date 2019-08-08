@@ -19,6 +19,8 @@ per-file-ignores =
     tests/test_fail/mixed_tab_spaces.py: E101,E999,W191
     tests/with_pyproject_toml/ordinary_quotes.py: Q000
     tests/test_cases/mixed_tab_spaces.py: E101,E999,W191
+    # The bad TOML file breaks black checking this file:
+    tests/with_bad_toml/hello_world.py: BLK997,
 
 # =====================
 # flake-quote settings:
