@@ -65,12 +65,9 @@ class BlackStyleChecker(object):
 
             return flake8_black_path
 
-        source_path = (
-            self.filename
-            if self.filename not in self.STDIN_NAMES
-            else Path.cwd().as_posix()
+        project_root = black.find_project_root(
+            ("." if self.filename in self.STDIN_NAMES else self.filename,)
         )
-        project_root = black.find_project_root((Path(source_path),))
         return project_root / "pyproject.toml"
 
     def _load_black_config(self):
