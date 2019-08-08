@@ -51,9 +51,6 @@ class BlackStyleChecker(object):
         self.tree = tree
         self.filename = filename
         self.line_length = black.DEFAULT_LINE_LENGTH  # Expect to be 88
-        # Following for legacy versions of black only,
-        # see property self._file_mode for new black versions:
-        self.file_mode = 0  # was: black.FileMode.AUTO_DETECT
 
     @property
     @lru_cache()
@@ -101,21 +98,12 @@ class BlackStyleChecker(object):
             skip_string_normalization = black_config.get(
                 "skip_string_normalization", False
             )
-        if skip_string_normalization:
-            # Used with older versions of black:
-            self.file_mode |= 4  # was black.FileMode.NO_STRING_NORMALIZATION
-        try:
-            # Recent versions of black have a FileMode object
-            # which includes the line length setting
-            return black.FileMode(
-                target_versions=target_versions,
-                line_length=self.line_length,
-                string_normalization=not skip_string_normalization,
-            )
-        except TypeError as e:
-            # Legacy mode for old versions of black
-            assert "got an unexpected keyword argument" in str(e), e
-            return None
+        # Requires black 19.3b0 or later:
+        return black.FileMode(
+            target_versions=target_versions,
+            line_length=self.line_length,
+            string_normalization=not skip_string_normalization,
+        )
 
     @classmethod
     def add_options(cls, parser):
@@ -159,19 +147,9 @@ class BlackStyleChecker(object):
         elif source:
             # Call black...
             try:
-                if self._file_mode is None:
-                    # Legacy version of black, 18.9b0 or older
-                    new_code = black.format_file_contents(
-                        source,
-                        line_length=self.line_length,
-                        fast=False,
-                        mode=black.FileMode(self.file_mode),
-                    )
-                else:
-                    # For black 19.3b0 or later
-                    new_code = black.format_file_contents(
-                        source, mode=self._file_mode, fast=False
-                    )
+                new_code = black.format_file_contents(
+                    source, mode=self._file_mode, fast=False
+                )
             except black.NothingChanged:
                 return
             except black.InvalidInput:

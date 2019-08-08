@@ -149,16 +149,17 @@ v0.1.1  *pending*    - Option to use a (global) black configuration file,
                        `Tomasz Grining <https://github.com/098799>`_.
                      - Logs configuration files, use ``-v`` or ``--verbose``.
                      - Fixed flake8 "builtins" parameter warning.
-v0.1.0  2019-06-03   - Uses main ``black`` settings from ``pyproject.toml``,
+                     - Now requires black 19.3b0 or later.
+v0.1.0  2019-06-03   - Uses main black settings from ``pyproject.toml``,
                        contribution from `Alex <https://github.com/ADKosm>`_.
-                     - WARNING: Now ignores ``flake8`` max-line-length setting.
+                     - WARNING: Now ignores flake8 ``max-line-length`` setting.
 v0.0.4  2019-03-15   - Supports black 19.3b0 which changed a function call.
 v0.0.3  2019-02-21   - Bug fix when ``W292 no newline at end of file`` applies,
                        contribution from
                        `Sapphire Becker <https://github.com/sapphire-janrain>`_.
 v0.0.2  2019-02-15   - Document syntax error behaviour (no BLK error reported).
 v0.0.1  2019-01-10   - Initial public release.
-                     - Passes ``flake8`` max-line-length setting to ``black``.
+                     - Passes flake8 ``max-line-length`` setting to black.
 ======= ============ ===========================================================
 
 
