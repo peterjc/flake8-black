@@ -119,6 +119,10 @@ file is found, the plugin will look at the following ``black`` settings:
 * ``skip_string_normalization``
 * ``line_length``
 
+You can specify a particular path for the ``pyproject.toml`` file (e.g.
+global development settings) using ``--black-config FILENAME`` at the
+command line, or using ``black-config = FILENAME`` in your ``flake8``
+configuration file.
 
 Ignoring validation codes
 -------------------------
