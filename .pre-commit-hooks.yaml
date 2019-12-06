@@ -1,0 +1,8 @@
+-   id: flake8-black
+    name: flake8-black
+    description: flake8 plugin for validating Python code style with the command line code formatting tool black
+    entry: flake8_black.py
+    language: python
+    always_run: true
+    pass_filenames: false
+    minimum_pre_commit_version: 0.1.1
