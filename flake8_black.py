@@ -1,7 +1,7 @@
 """Check Python code passes black style validation via flake8.
 
 This is a plugin for the tool flake8 tool for checking Python
-soucre code using the tool black.
+source code using the tool black.
 """
 
 from os import path
