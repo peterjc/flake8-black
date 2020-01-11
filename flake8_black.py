@@ -76,7 +76,7 @@ def load_black_mode(toml_filename=None):
 black_config = {None: load_black_mode()}  # None key's value is default config
 
 
-class BlackStyleChecker(object):
+class BlackStyleChecker:
     """Checker of Python code using black."""
 
     name = "black"
