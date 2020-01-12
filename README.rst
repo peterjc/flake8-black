@@ -3,7 +3,7 @@ flake8-black
 
 .. image:: https://img.shields.io/pypi/v/flake8-black.svg
    :alt: Released on the Python Package Index (PyPI)
-   :target: https://pypi.python.org/pypi/flake8-black
+   :target: https://pypi.org/project/flake8-black/
 .. image:: https://img.shields.io/conda/vn/conda-forge/flake8-black.svg
    :alt: Released on Conda
    :target: https://anaconda.org/conda-forge/flake8-black
@@ -23,9 +23,7 @@ Introduction
 This is an MIT licensed `flake8 <https://gitlab.com/pycqa/flake8>`_ plugin
 for validating Python code style with the command line code formatting tool
 `black <https://github.com/python/black>`_. It is available to install from
-the Python Package Index (PyPI):
-
-- https://pypi.python.org/pypi/flake8-black
+the `Python Package Index (PyPI) <https://pypi.org/project/flake8-black/>`_.
 
 Black, *"The Uncompromising Code Formatter"*, is normally run to edit your
 Python code in place to match their coding style, a strict subset of the
