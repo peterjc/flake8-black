@@ -22,6 +22,11 @@ setup(
     author="Peter J. A. Cock",
     author_email="p.j.a.cock@googlemail.com",
     url="https://github.com/peterjc/flake8-black",
+    project_urls={
+        "Documentation": "https://github.com/peterjc/flake8-black/blob/master/README.rst",
+        "Source": "https://github.com/peterjc/flake8-black/",
+        "Tracker": "https://github.com/peterjc/flake8-black/issues",
+    },
     classifiers=[
         "Intended Audience :: Developers",
         "Framework :: Flake8",
