@@ -33,6 +33,9 @@ The point of this plugin is to be able to run ``black --check ...`` from
 within the ``flake8`` plugin ecosystem. You might use this via a ``git``
 pre-commit hook, or as part of your continuous integration testing.
 
+If you are using `pre-commit <https://pre-commit.com/>`_ configure it to call
+black and/or flake8 directly - you do not need flake8-black at all.
+
 Flake8 Validation codes
 -----------------------
 
