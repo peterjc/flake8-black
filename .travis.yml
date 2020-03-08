@@ -9,6 +9,10 @@ jobs:
   include:
     - stage: test
       python: "3.6"
+    - stage: test
+      python: "3.7"
+    - stage: test
+      python: "3.8"
 
 before_install:
  - "if grep '\t' *.py *.rst; then echo 'Tabs are bad, please use four spaces.'; false; fi"
