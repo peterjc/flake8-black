@@ -150,6 +150,12 @@ Version History
 ======= ============ ===========================================================
 Version Release date   Changes
 ------- ------------ -----------------------------------------------------------
+v0.2.0  2020-05-20   - Minimum requirement on black 19.3b0 or later is now
+                       implicit. This is a workaround for `pipenv issue 3928
+                       <https://github.com/pypa/pipenv/issues/3928>`_. Upgrade
+                       black if running flake8 gives an error like this:
+                       ``Flake8 failed to load plugin "BLK" due to __call__()
+                       got an unexpected keyword argument 'target_versions'.``
 v0.1.2  2020-05-18   - Removed test broken by flake8 v3.8 change to resolve
                        configuration files relative to current directory.
 v0.1.1  2019-08-26   - Option to use a (global) black configuration file,
