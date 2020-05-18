@@ -138,7 +138,7 @@ class BlackStyleChecker:
         )
 
     @classmethod
-    def parse_options(cls, options):
+    def parse_options(cls, optmanager, options, extra_args):
         """Adding black-config option."""
         # We have one and only one flake8 plugin configuration
         if options.black_config is None:
