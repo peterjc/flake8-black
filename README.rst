@@ -150,6 +150,8 @@ Version History
 ======= ============ ===========================================================
 Version Release date   Changes
 ------- ------------ -----------------------------------------------------------
+v0.1.2  2020-05-18   - Removed test broken by flake8 v3.8 change to resolve
+                       configuration files relative to current directory.
 v0.1.1  2019-08-26   - Option to use a (global) black configuration file,
                        contribution from
                        `Tomasz Grining <https://github.com/098799>`_.
