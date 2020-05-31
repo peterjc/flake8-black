@@ -88,6 +88,28 @@ You can request only the ``BLK`` codes be shown using::
 
     $ flake8 --select BLK example.py
 
+Python package management
+-------------------------
+
+We covered using pip or conda by hand above. If you are using a PyPI based
+Python dependency system like pipenv or poetry, you may run into complications
+because at the time of writing all the black releases to PyPI have been tagged
+as pre-releases (beta code). `PEP440 Handling of pre-releases
+<https://www.python.org/dev/peps/pep-0440/#handling-of-pre-releases>`_
+could be more explicit here.
+
+For pipenv, flake8-black v0.2.0 onwards should just work.
+
+For poetry, include this in your ``pyproject.toml`` configuration file::
+
+    [tool.poetry.dev-dependencies]
+    ...
+    black = { version = "*", allow-prereleases = true }
+    ...
+
+In either case, for large projects you should consider pinning the exact
+version of black you want to use as their updates do sometimes introduce
+changes which would show up as new ``BLK100`` violations via flake8.
 
 Configuration
 -------------
