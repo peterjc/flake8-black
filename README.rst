@@ -172,6 +172,7 @@ Version History
 ======= ============ ===========================================================
 Version Release date   Changes
 ------- ------------ -----------------------------------------------------------
+v0.2.1  2020-07-25   - Detect ``*.pyi`` files via extension.
 v0.2.0  2020-05-20   - Minimum requirement on black 19.3b0 or later is now
                        implicit. This is a workaround for `pipenv issue 3928
                        <https://github.com/pypa/pipenv/issues/3928>`_. Upgrade
