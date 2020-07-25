@@ -18,7 +18,8 @@ flake8 --select BLK test_cases/ --black-config with_bad_toml/pyproject.toml 2>&1
 set -o pipefail
 
 echo "Checking we report no errors on these test cases"
-flake8 --select BLK test_cases/*.py
+# Must explicitly include *.pyi or flake8 ignores them
+flake8 --select BLK test_cases/*.py*
 # Adding --black-config '' meaning ignore any pyproject.toml should have no effect:
 flake8 --select BLK test_cases/*.py --black-config ''
 flake8 --select BLK --max-line-length 50 test_cases/*.py
