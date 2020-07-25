@@ -14,7 +14,7 @@ from flake8 import utils as stdin_utils
 from flake8 import LOG
 
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 black_prefix = "BLK"
 
@@ -201,8 +201,10 @@ class BlackStyleChecker:
         elif source:
             # Call black...
             try:
+                file_mode = self._file_mode
+                file_mode.is_pyi = self.filename and self.filename.endswith(".pyi")
                 new_code = black.format_file_contents(
-                    source, mode=self._file_mode, fast=False
+                    source, mode=file_mode, fast=False
                 )
             except black.NothingChanged:
                 return
