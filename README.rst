@@ -209,9 +209,9 @@ This plugin is on GitHub at https://github.com/peterjc/flake8-black
 To make a new release once tested locally and on TravisCI::
 
     $ git tag vX.Y.Z
-    $ python setup.py sdist --formats=gztar
-    $ twine upload dist/flake8-black-X.Y.Z.tar.gz
+    $ python setup.py sdist --formats=gztar && python setup.py bdist_wheel
     $ git push origin master --tags
+    $ twine upload dist/flake8?black-X.Y.Z*
 
 The PyPI upload should trigger an automated pull request updating the
 `flake8-black conda-forge recipe
