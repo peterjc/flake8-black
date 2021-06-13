@@ -123,12 +123,11 @@ We recommend using the following settings in your ``flake8`` configuration,
 for example in your ``.flake8``, ``setup.cfg``, or ``tox.ini`` file::
 
     [flake8]
-    # Recommend matching the black line length (default 88),
-    # rather than using the flake8 default of 79:
-    max-line-length = 88
     extend-ignore =
         # See https://github.com/PyCQA/pycodestyle/issues/373
         E203,
+        # Black already takes care of long lines
+        E501,
 
 Note currently ``pycodestyle`` gives false positives on the spaces ``black``
 uses for slices, which ``flake8`` reports as ``E203: whitespace before ':'``.
