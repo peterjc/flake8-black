@@ -170,9 +170,10 @@ Version History
 ---------------
 
 ======= ============ ===========================================================
-Version Release date   Changes
+Version Release date Changes
 ------- ------------ -----------------------------------------------------------
-v0.2.2  2021-07-16   - Make ``toml`` dependency explicit for black 21.7b0.
+v0.2.3  2021-07-16   - Made ``toml`` dependency explicit in ``setup.py``.
+v0.2.2  2021-07-16   - Declared ``toml`` dependency (for black 21.7b0).
 v0.2.1  2020-07-25   - Detect ``*.pyi`` files via extension.
 v0.2.0  2020-05-20   - Minimum requirement on black 19.3b0 or later is now
                        implicit. This is a workaround for `pipenv issue 3928
