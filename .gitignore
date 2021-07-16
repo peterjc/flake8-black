@@ -4,9 +4,13 @@ build
 #Ignore the distribution directory
 dist
 
+# Ignore the Tox directory
+.tox/
+
 #Ignore another Python specific build folder:
 flake8_black.egg-info/
- 
+__pycache__/
+
 #Ignore backup files from some Unix editors,
 *~
 *.swp
