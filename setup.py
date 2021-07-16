@@ -41,6 +41,6 @@ setup(
     ],
     keywords="PEP8",
     py_modules=["flake8_black"],
-    install_requires=["flake8 >= 3.0.0", "black", "toml"],
+    install_requires=["flake8 >= 3.0.0", "black", "tomli"],
     entry_points={"flake8.extension": ["BLK = flake8_black:BlackStyleChecker"]},
 )
