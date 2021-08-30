@@ -7,6 +7,9 @@ flake8-black
 .. image:: https://img.shields.io/conda/vn/conda-forge/flake8-black.svg
    :alt: Released on Conda
    :target: https://anaconda.org/conda-forge/flake8-black
+.. image:: https://results.pre-commit.ci/badge/github/peterjc/flake8-black/master.svg
+   :target: https://results.pre-commit.ci/latest/github/peterjc/flake8-black/master
+   :alt: pre-commit.ci status
 .. image:: https://img.shields.io/travis/peterjc/flake8-black/master.svg
    :alt: Testing with TravisCI
    :target: https://travis-ci.org/peterjc/flake8-black/branches
