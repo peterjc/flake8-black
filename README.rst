@@ -154,7 +154,7 @@ Using the flake8 no-quality-assurance pragma comment is not recommended
 (e.g. adding ``# noqa: BLK100`` to the first line black would change).
 Instead use the black pragma comments ``# fmt: off`` at the start, and
 ``# fmt: on`` at the end, of any region of your code which should not be
-changed. Or, exlude the entire file by name (see below).
+changed. Or, exclude the entire file by name (see below).
 
 
 Ignoring files
