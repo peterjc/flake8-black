@@ -26,7 +26,7 @@ repos:
         exclude: tests/
         args: [--check]
 -   repo: https://github.com/PyCQA/flake8
-    rev: 3.9.2
+    rev: 4.0.1
     hooks:
     -   id: flake8
         additional_dependencies: [
@@ -37,7 +37,8 @@ repos:
             'flake8-docstrings',
             'flake8-implicit-str-concat',
             'pydocstyle>=5.0.0',
-         ]
+        ]
+        exclude: ^tests/test_cases/no_closing_bracket\.py$
 -   repo: https://github.com/asottile/blacken-docs
     rev: v1.11.0
     hooks:
