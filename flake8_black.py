@@ -99,7 +99,7 @@ class BlackStyleChecker:
         # Unless using override, we look for pyproject.toml
         project_root = black.find_project_root(
             ("." if self.filename in self.STDIN_NAMES else self.filename,)
-        )
+        )[0]
         path = project_root / "pyproject.toml"
 
         if path in black_config:
