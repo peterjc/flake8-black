@@ -100,6 +100,10 @@ class BlackStyleChecker:
         project_root = black.find_project_root(
             ("." if self.filename in self.STDIN_NAMES else self.filename,)
         )
+        if isinstance(project_root, tuple):
+            # black stable 22.1.0 update find_project_root return value
+            # from Path to Tuple[Path, str]
+            project_root = project_root[0]
         path = project_root / "pyproject.toml"
 
         if path in black_config:
