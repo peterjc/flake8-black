@@ -175,7 +175,9 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
-v0.2.4  2022-01-30   - Supports black v22.1.0 which changed a function call.
+v0.2.4  2022-01-30   - Support black v22.1.0 which changed a function call,
+                       contribution from
+                       `Raffaele Salmaso <https://github.com/rsalmaso>`_.
 v0.2.3  2021-07-16   - Made ``toml`` dependency explicit in ``setup.py``.
 v0.2.2  2021-07-16   - Declared ``toml`` dependency (for black 21.7b0).
 v0.2.1  2020-07-25   - Detect ``*.pyi`` files via extension.
