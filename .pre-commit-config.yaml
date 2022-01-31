@@ -20,7 +20,7 @@ repos:
     -   id: trailing-whitespace
         files: \.(py|sh|rst|yml|yaml)$
 -   repo: https://github.com/psf/black
-    rev: 21.12b0
+    rev: 22.1.0
     hooks:
     -   id: black
         exclude: tests/
@@ -40,10 +40,10 @@ repos:
         ]
         exclude: ^tests/test_cases/no_closing_bracket\.py$
 -   repo: https://github.com/asottile/blacken-docs
-    rev: v1.12.0
+    rev: v1.12.1
     hooks:
     -   id: blacken-docs
-        additional_dependencies: [black==21.12b0]
+        additional_dependencies: [black==22.1.0]
         exclude: ^.github/
 -   repo: https://github.com/myint/rstcheck
     rev: 3f92957478422df87bd730abde66f089cc1ee19b
