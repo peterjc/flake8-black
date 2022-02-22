@@ -51,6 +51,8 @@ def load_black_mode(toml_filename=None):
             target_versions=set(),
             line_length=black.DEFAULT_LINE_LENGTH,  # Expect to be 88
             string_normalization=True,
+            magic_trailing_comma=True,
+            preview=False,
         )
 
     LOG.info("flake8-black: loading black settings from %s", toml_filename)
@@ -70,6 +72,8 @@ def load_black_mode(toml_filename=None):
         },
         line_length=black_config.get("line_length", black.DEFAULT_LINE_LENGTH),
         string_normalization=not black_config.get("skip_string_normalization", False),
+        magic_trailing_comma=not black_config.get("skip_magic_trailing_comma", False),
+        preview=black_config.get("preview", False),
     )
 
 
