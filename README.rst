@@ -172,6 +172,8 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
+v0.3.1  2022-02-25   - Use ``tomli`` library to match black, contribution from
+		       `Brian Helba <https://github.com/brianhelba>`_.
 v0.3.0  2022-02-25   - Requires black v22.1.0 (first non-beta release) or later.
                      - Support options "preview", "skip-magic-trailing-comma"
                        in the black TOML file, contribution from
