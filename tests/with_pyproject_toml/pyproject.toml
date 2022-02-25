@@ -1,3 +1,4 @@
 [tool.black]
 skip-string-normalization = true
 skip-magic-trailing-comma = true
+preview = true

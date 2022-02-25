@@ -43,8 +43,10 @@ diff with_bad_toml/hello_world.txt <(flake8 --select BLK with_bad_toml/hello_wor
 diff with_pyproject_toml/ignoring_toml.txt <(flake8 with_pyproject_toml/ --select BLK --black-config '')
 
 # no changes by default,
-flake8 --select BLK test_changes/commas.py
+flake8 --select BLK test_changes/commas.py tests/black_preview.py
 # will make changes if we ignore the magic trailing comma:
 diff test_changes/commas.txt <(flake8 --select BLK test_changes/commas.py --black-config with_pyproject_toml/pyproject.toml)
+# will make changes if we enable future functionality preview mode:
+diff test_changes/black_preview.txt <(flake8 --select BLK test_changes/black_preview.py --black-config with_pyproject_toml/pyproject.toml)
 
 echo "Tests passed."
