@@ -7,9 +7,9 @@ flake8-black
 .. image:: https://img.shields.io/conda/vn/conda-forge/flake8-black.svg
    :alt: Released on Conda
    :target: https://anaconda.org/conda-forge/flake8-black
-.. image:: https://img.shields.io/travis/peterjc/flake8-black/master.svg
-   :alt: Testing with TravisCI
-   :target: https://travis-ci.org/peterjc/flake8-black/branches
+.. image:: https://results.pre-commit.ci/badge/github/peterjc/flake8-black/master.svg
+   :target: https://results.pre-commit.ci/latest/github/peterjc/flake8-black/master
+   :alt: pre-commit.ci status
 .. image:: https://img.shields.io/pypi/dm/flake8-black.svg
    :alt: PyPI downloads
    :target: https://pypistats.org/packages/flake8-black
@@ -150,12 +150,12 @@ configuration file.
 Ignoring validation codes
 -------------------------
 
-Using the flake8 no-quality-assurance pragma comment is not recommended
-(e.g. adding ``# noqa: BLK100`` to the first line black would change).
-Instead use the black pragma comments ``# fmt: off`` at the start, and
-``# fmt: on`` at the end, of any region of your code which should not be
-changed. Or, exlude the entire file by name (see below).
-
+Using the flake8 no-quality-assurance pragma comment is not recommended (e.g.
+adding ``# noqa: BLK100`` to the first line black would change). Instead use
+the black pragma comments ``# fmt: off`` at the start, and ``# fmt: on`` at
+the end, of any region of your code which should not be changed. Or, add
+``# fmt: skip`` to single lines. Or, exclude the entire file by name (see
+below).
 
 Ignoring files
 --------------
@@ -172,6 +172,13 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
+v0.3.0  2022-02-25   - Requires black v22.1.0 (first non-beta release) or later.
+                     - Support options "preview", "skip-magic-trailing-comma"
+                       in the black TOML file, contribution from
+                       `Ferdy <https://github.com/ferdynice>`_.
+v0.2.4  2022-01-30   - Support black v22.1.0 which changed a function call,
+                       contribution from
+                       `Raffaele Salmaso <https://github.com/rsalmaso>`_.
 v0.2.3  2021-07-16   - Made ``toml`` dependency explicit in ``setup.py``.
 v0.2.2  2021-07-16   - Declared ``toml`` dependency (for black 21.7b0).
 v0.2.1  2020-07-25   - Detect ``*.pyi`` files via extension.

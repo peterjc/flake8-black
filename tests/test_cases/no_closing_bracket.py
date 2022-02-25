@@ -15,13 +15,12 @@ Black will fail to parse this file:
 
 It seems in this case the plugin never gets the chance to report:
 
-    $ flake8 --select BLK tests/test_fail/no_closing_bracket.py ; echo "Return code $?"
+    $ flake8 --select BLK no_closing_bracket.py ; echo "Return code $?"
     Return code 0
 
 This doesn't really matter, as it would be redundant with the flake8 syntax errors:
 
     $ flake8 no_closing_bracket.py ; echo "Return code $?"
-    no_closing_bracket.py:1:1: E902 TokenError: EOF in multi-line statement
     no_closing_bracket.py:30:19: E999 SyntaxError: unexpected EOF while parsing
     Return code 1
 

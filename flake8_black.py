@@ -14,7 +14,7 @@ from flake8 import utils as stdin_utils
 from flake8 import LOG
 
 
-__version__ = "0.2.3"
+__version__ = "0.3.0"
 
 black_prefix = "BLK"
 
@@ -51,6 +51,8 @@ def load_black_mode(toml_filename=None):
             target_versions=set(),
             line_length=black.DEFAULT_LINE_LENGTH,  # Expect to be 88
             string_normalization=True,
+            magic_trailing_comma=True,
+            preview=False,
         )
 
     LOG.info("flake8-black: loading black settings from %s", toml_filename)
@@ -71,6 +73,8 @@ def load_black_mode(toml_filename=None):
         },
         line_length=black_config.get("line_length", black.DEFAULT_LINE_LENGTH),
         string_normalization=not black_config.get("skip_string_normalization", False),
+        magic_trailing_comma=not black_config.get("skip_magic_trailing_comma", False),
+        preview=black_config.get("preview", False),
     )
 
 
@@ -101,6 +105,10 @@ class BlackStyleChecker:
         project_root = black.find_project_root(
             ("." if self.filename in self.STDIN_NAMES else self.filename,)
         )
+        if isinstance(project_root, tuple):
+            # black stable 22.1.0 update find_project_root return value
+            # from Path to Tuple[Path, str]
+            project_root = project_root[0]
         path = project_root / "pyproject.toml"
 
         if path in black_config:
