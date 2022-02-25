@@ -172,7 +172,7 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
-v0.2.5  2022-02-23   - Support options "preview", "skip-magic-trailing-comma",
+v0.2.5  2022-02-25   - Support options "preview", "skip-magic-trailing-comma",
                        contribution from
                        `Ferdy <https://github.com/ferdynice>`_.
 v0.2.4  2022-01-30   - Support black v22.1.0 which changed a function call,
