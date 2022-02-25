@@ -68,8 +68,8 @@ you will *not* get an additional ``BLK`` error.
 Installation
 ------------
 
-Python 3.6 or later is required to run ``black``, so that is recommended, but
-``black`` can be used on Python code written for older versions of Python.
+Python 3.7 or later is required, but ``black`` can be used on Python code
+written for older versions of Python.
 
 You can install ``flake8-black`` using ``pip``, which should install ``flake8``
 and ``black`` as well if not already present::
