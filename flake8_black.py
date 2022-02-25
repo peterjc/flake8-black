@@ -57,9 +57,9 @@ def load_black_mode(toml_filename=None):
 
     LOG.info("flake8-black: loading black settings from %s", toml_filename)
     try:
-        with toml_filename.open(encoding="utf8") as toml_file:
+        with toml_filename.open(mode="rb") as toml_file:
             pyproject_toml = tomli.load(toml_file)
-    except tomli.TOMLDecodeError:
+    except ValueError:
         LOG.info("flake8-black: invalid TOML file %s", toml_filename)
         raise BadBlackConfig(path.relpath(toml_filename))
     config = pyproject_toml.get("tool", {}).get("black", {})
