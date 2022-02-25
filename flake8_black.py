@@ -8,7 +8,7 @@ from os import path
 from pathlib import Path
 
 import black
-import toml
+import tomli
 
 from flake8 import utils as stdin_utils
 from flake8 import LOG
@@ -57,8 +57,9 @@ def load_black_mode(toml_filename=None):
 
     LOG.info("flake8-black: loading black settings from %s", toml_filename)
     try:
-        pyproject_toml = toml.load(str(toml_filename))
-    except toml.decoder.TomlDecodeError:
+        with toml_filename.open(encoding="utf8") as toml_file:
+            pyproject_toml = tomli.load(toml_file)
+    except tomli.TOMLDecodeError:
         LOG.info("flake8-black: invalid TOML file %s", toml_filename)
         raise BadBlackConfig(path.relpath(toml_filename))
     config = pyproject_toml.get("tool", {}).get("black", {})
