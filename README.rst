@@ -178,6 +178,7 @@ Version Release date Changes
 v0.3.2  2022-02-25   - Use ``tomli`` library to match black, contribution from
 		       `Brian Helba <https://github.com/brianhelba>`_.
                      - Adopted GitHub Actions to replace TravisCI testing.
+                     - Python 3.7 or later required.
 v0.3.0  2022-02-25   - Requires black v22.1.0 (first non-beta release) or later.
                      - Support options "preview", "skip-magic-trailing-comma"
                        in the black TOML file, contribution from
