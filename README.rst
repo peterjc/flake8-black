@@ -172,10 +172,10 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
-v0.2.5  2022-02-25   - Support options "preview", "skip-magic-trailing-comma",
-                       contribution from
+v0.3.0  2022-02-25   - Requires black v22.1.0 (first non-beta release) or later.
+                     - Support options "preview", "skip-magic-trailing-comma"
+                       in the black TOML file, contribution from
                        `Ferdy <https://github.com/ferdynice>`_.
-                      - Requires black v22.1.0 or later.
 v0.2.4  2022-01-30   - Support black v22.1.0 which changed a function call,
                        contribution from
                        `Raffaele Salmaso <https://github.com/rsalmaso>`_.
