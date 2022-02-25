@@ -10,9 +10,6 @@ flake8-black
 .. image:: https://results.pre-commit.ci/badge/github/peterjc/flake8-black/master.svg
    :target: https://results.pre-commit.ci/latest/github/peterjc/flake8-black/master
    :alt: pre-commit.ci status
-.. image:: https://img.shields.io/travis/peterjc/flake8-black/master.svg
-   :alt: Testing with TravisCI
-   :target: https://travis-ci.org/peterjc/flake8-black/branches
 .. image:: https://img.shields.io/pypi/dm/flake8-black.svg
    :alt: PyPI downloads
    :target: https://pypistats.org/packages/flake8-black
