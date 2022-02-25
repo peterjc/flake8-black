@@ -217,7 +217,7 @@ Developers
 
 This plugin is on GitHub at https://github.com/peterjc/flake8-black
 
-To make a new release once tested locally and on TravisCI::
+To make a new release once tested locally and online::
 
     $ git tag vX.Y.Z
     $ python setup.py sdist --formats=gztar && python setup.py bdist_wheel
