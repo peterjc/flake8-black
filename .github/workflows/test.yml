@@ -4,10 +4,14 @@ on: [push, pull_request]
 
 jobs:
   run-tests:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
         python-version: ["3.7", "3.8", "3.9", "3.10"]
     steps:
     - uses: actions/checkout@v2
@@ -29,6 +33,6 @@ jobs:
       run: |
         # Unpack the tests from the sdist tar-ball
         # (want to confirm the manifest was complete)
-        tar --wildcards '*/tests/*' -zxvf dist/flake8-black-*.tar.gz
+        tar -zxvf dist/flake8-black-*.tar.gz
         cd flake8-black-*/tests/
-        bash ./run_tests.sh
+        WIN="$([ "$RUNNER_OS" == "Windows" ];echo $?)" bash ./run_tests.sh
