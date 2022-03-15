@@ -39,7 +39,13 @@ echo "Checking we report expected black changes"
 diff test_changes/hello_world.txt <(flake8 --select BLK test_changes/hello_world.py)
 diff test_changes/hello_world_EOF.txt <(flake8 --select BLK test_changes/hello_world_EOF.py)
 diff test_changes/hello_world_EOF.txt <(flake8 --select BLK test_changes/hello_world_EOF.py --black-config '')
-diff with_bad_toml/hello_world.txt <(flake8 --select BLK with_bad_toml/hello_world.py)
+diff <(
+  if [ "${WIN:-1}" = 0 ]; then
+    sed 's_/_\\_2' with_bad_toml/hello_world.txt
+  else
+    cat with_bad_toml/hello_world.txt
+  fi
+) <(flake8 --select BLK with_bad_toml/hello_world.py)
 diff with_pyproject_toml/ignoring_toml.txt <(flake8 with_pyproject_toml/ --select BLK --black-config '')
 
 # no changes by default,
