@@ -36,23 +36,23 @@ flake8 --select BLK conflicting_configurations/*.py
 flake8 --select BLK with_bad_toml/hello_world.py --black-config ''
 
 echo "Checking we report expected black changes"
-diff --strip-trailing-cr test_changes/hello_world.txt <(flake8 --select BLK test_changes/hello_world.py)
-diff --strip-trailing-cr test_changes/hello_world_EOF.txt <(flake8 --select BLK test_changes/hello_world_EOF.py)
-diff --strip-trailing-cr test_changes/hello_world_EOF.txt <(flake8 --select BLK test_changes/hello_world_EOF.py --black-config '')
-diff --strip-trailing-cr <(
+diff test_changes/hello_world.txt <(flake8 --select BLK test_changes/hello_world.py)
+diff test_changes/hello_world_EOF.txt <(flake8 --select BLK test_changes/hello_world_EOF.py)
+diff test_changes/hello_world_EOF.txt <(flake8 --select BLK test_changes/hello_world_EOF.py --black-config '')
+diff <(
   if [ "${WIN:-1}" = 0 ]; then
     sed 's_/_\\_2' with_bad_toml/hello_world.txt
   else
     cat with_bad_toml/hello_world.txt
   fi
 ) <(flake8 --select BLK with_bad_toml/hello_world.py)
-diff --strip-trailing-cr with_pyproject_toml/ignoring_toml.txt <(flake8 with_pyproject_toml/ --select BLK --black-config '')
+diff with_pyproject_toml/ignoring_toml.txt <(flake8 with_pyproject_toml/ --select BLK --black-config '')
 
 # no changes by default,
 flake8 --select BLK test_changes/commas.py tests/black_preview.py
 # will make changes if we ignore the magic trailing comma:
-diff --strip-trailing-cr test_changes/commas.txt <(flake8 --select BLK test_changes/commas.py --black-config with_pyproject_toml/pyproject.toml)
+diff test_changes/commas.txt <(flake8 --select BLK test_changes/commas.py --black-config with_pyproject_toml/pyproject.toml)
 # will make changes if we enable future functionality preview mode:
-diff --strip-trailing-cr test_changes/black_preview.txt <(flake8 --select BLK test_changes/black_preview.py --black-config with_pyproject_toml/pyproject.toml)
+diff test_changes/black_preview.txt <(flake8 --select BLK test_changes/black_preview.py --black-config with_pyproject_toml/pyproject.toml)
 
 echo "Tests passed."
