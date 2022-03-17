@@ -15,6 +15,10 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Git configuration
+      run: |
+        git config core.autocrlf false
+        git reset --hard
     - name: Build packages, and install the wheel
       run: |
         python setup.py sdist --formats=gztar
