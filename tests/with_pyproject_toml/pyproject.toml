@@ -1,4 +1,7 @@
 [tool.black]
+# This is probably better as an integer,
+# but reasonable to cope with it as str:
+line-length = "88"
 skip-string-normalization = true
 skip-magic-trailing-comma = true
 preview = true

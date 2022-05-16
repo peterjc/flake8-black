@@ -65,16 +65,17 @@ def load_black_mode(toml_filename=None):
     config = pyproject_toml.get("tool", {}).get("black", {})
     black_config = {k.replace("--", "").replace("-", "_"): v for k, v in config.items()}
 
-    # Extract the fields we care about:
+    # Extract the fields we care about,
+    # cast to int explicitly otherwise line length could be a string
     return black.FileMode(
         target_versions={
             black.TargetVersion[val.upper()]
             for val in black_config.get("target_version", [])
         },
-        line_length=black_config.get("line_length", black.DEFAULT_LINE_LENGTH),
+        line_length=int(black_config.get("line_length", black.DEFAULT_LINE_LENGTH)),
         string_normalization=not black_config.get("skip_string_normalization", False),
         magic_trailing_comma=not black_config.get("skip_magic_trailing_comma", False),
-        preview=black_config.get("preview", False),
+        preview=bool(black_config.get("preview", False)),
     )
 
 
