@@ -175,6 +175,7 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
+v0.3.3  2022-05-16   - Cope with line-length as string in pyproject.toml config.
 v0.3.2  2022-02-25   - Use ``tomli`` library to match black, contribution from
                        `Brian Helba <https://github.com/brianhelba>`_.
                      - Adopted GitHub Actions to replace TravisCI testing.
