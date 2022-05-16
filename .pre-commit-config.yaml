@@ -46,7 +46,7 @@ repos:
         additional_dependencies: [black==22.3.0]
         exclude: ^.github/
 -   repo: https://github.com/myint/rstcheck
-    rev: v5.0.0
+    rev: v6.0.0a1
     hooks:
     -   id: rstcheck
         args: [
