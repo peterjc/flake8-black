@@ -120,7 +120,7 @@ Configuration
 We assume you are familiar with `flake8 configuration
 <http://flake8.pycqa.org/en/latest/user/configuration.html>`_ and
 `black configuration
-<https://black.readthedocs.io/en/stable/pyproject_toml.html>`_.
+<https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file>`_.
 
 We recommend using the following settings in your ``flake8`` configuration,
 for example in your ``.flake8``, ``setup.cfg``, or ``tox.ini`` file::
