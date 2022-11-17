@@ -1,0 +1,49 @@
+[build-system]
+requires = ['pip>=21.3', 'setuptools>=61', 'wheel']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'flake8-black'
+description = 'flake8 plugin to call black as a code style validator'
+keywords = ['black', 'formatting', 'style', 'flake8']
+license = {text = 'MIT'}
+readme = 'README.rst'
+authors = [
+  {name = 'Peter J. A. Cock'}
+]
+maintainers = [
+  {name = 'Peter J. A. Cock', email = 'p.j.a.cock@googlemail.com'}
+]
+classifiers = [
+  'Intended Audience :: Developers',
+  'Framework :: Flake8',
+  'License :: OSI Approved :: MIT License',
+  'Operating System :: OS Independent',
+  'Topic :: Software Development :: Libraries :: Python Modules',
+  'Topic :: Software Development :: Quality Assurance',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3 :: Only'
+]
+requires-python = '>=3.7'
+dependencies = [
+  'flake8>=3',
+  'black>=22.1.0',
+  'tomli',
+]
+dynamic = ['version']
+[project.entry-points]
+'flake8.extension' = {RST = 'flake8_black:BlackStyleChecker'}
+[project.optional-dependencies]
+develop = ['build', 'twine']
+[project.urls]
+Homepage = 'https://github.com/peterjc/flake8-black'
+'Source Code' = 'https://github.com/peterjc/flake8-black/'
+'Bug Tracker' = 'https://github.com/peterjc/flake8-black/issues'
+Documentation = 'https://github.com/peterjc/flake8-black/blob/master/README.rst'
+
+[tool.setuptools]
+py-modules = ['flake8_black']
+zip-safe = true
+[tool.setuptools.dynamic]
+version = {attr = 'flake8_black.__version__'}

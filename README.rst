@@ -175,6 +175,7 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
+v0.3.4  2022-11-17   - Replaces ``setup.py`` with ``pyproject.toml`` for build.
 v0.3.3  2022-05-16   - Cope with line-length as string in pyproject.toml config.
 v0.3.2  2022-02-25   - Use ``tomli`` library to match black, contribution from
                        `Brian Helba <https://github.com/brianhelba>`_.
@@ -223,10 +224,15 @@ Developers
 
 This plugin is on GitHub at https://github.com/peterjc/flake8-black
 
+Developers may install the plugin from the git repository with optional build
+dependencies::
+
+    $ pip install -e .[develop]
+
 To make a new release once tested locally and online::
 
     $ git tag vX.Y.Z
-    $ python setup.py sdist --formats=gztar && python setup.py bdist_wheel
+    $ python -m build
     $ git push origin master --tags
     $ twine upload dist/flake8?black-X.Y.Z*
 

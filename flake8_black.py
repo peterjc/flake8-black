@@ -14,7 +14,7 @@ from flake8 import utils as stdin_utils
 from flake8 import LOG
 
 
-__version__ = "0.3.3"
+__version__ = "0.3.4"
 
 black_prefix = "BLK"
 
@@ -223,7 +223,7 @@ class BlackStyleChecker:
             except BadBlackConfig as err:
                 msg = "997 Invalid TOML file: %s" % err
             except Exception as err:
-                msg = "999 Unexpected exception: %s" % err
+                msg = "999 Unexpected exception: %r" % err
             else:
                 assert (
                     new_code != source
