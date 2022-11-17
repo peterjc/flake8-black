@@ -25,9 +25,7 @@ jobs:
         git reset --hard
     - name: Build packages, and install the wheel
       run: |
-        python setup.py sdist --formats=gztar
-        python -m pip install wheel
-        python setup.py bdist_wheel
+        python -m build
         cd dist
         python -m pip install flake8_black-*.whl
         cd ..
