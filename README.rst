@@ -175,6 +175,7 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
+v0.3.5  2022-11-21   - Fix regression clashing with ``flake8-rst-docstrings``.
 v0.3.4  2022-11-17   - Replaces ``setup.py`` with ``pyproject.toml`` for build.
 v0.3.3  2022-05-16   - Cope with line-length as string in pyproject.toml config.
 v0.3.2  2022-02-25   - Use ``tomli`` library to match black, contribution from
