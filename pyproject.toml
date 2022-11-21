@@ -33,7 +33,7 @@ dependencies = [
 ]
 dynamic = ['version']
 [project.entry-points]
-'flake8.extension' = {RST = 'flake8_black:BlackStyleChecker'}
+'flake8.extension' = {BLK = 'flake8_black:BlackStyleChecker'}
 [project.optional-dependencies]
 develop = ['build', 'twine']
 [project.urls]
