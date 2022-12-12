@@ -4,11 +4,16 @@ This is a plugin for the tool flake8 tool for checking Python
 source code using the tool black.
 """
 
+import sys
 from os import path
 from pathlib import Path
 
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
 import black
-import tomli
 
 from flake8 import utils as stdin_utils
 from flake8 import LOG
@@ -58,7 +63,7 @@ def load_black_mode(toml_filename=None):
     LOG.info("flake8-black: loading black settings from %s", toml_filename)
     try:
         with toml_filename.open(mode="rb") as toml_file:
-            pyproject_toml = tomli.load(toml_file)
+            pyproject_toml = tomllib.load(toml_file)
     except ValueError:
         LOG.info("flake8-black: invalid TOML file %s", toml_filename)
         raise BadBlackConfig(path.relpath(toml_filename))

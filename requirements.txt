@@ -4,4 +4,4 @@ flake8 >= 3.0.0
 
 # We need black, which in turn needs Python 3.6+
 black
-tomli
+tomli ; python_version < "3.11"
