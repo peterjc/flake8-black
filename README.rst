@@ -175,6 +175,9 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
+v0.3.6  *Pending*    - Use standard library ``tomllib`` on Python 3.11 onwards,
+                       contribution from
+                       `Ganden Schaffner <https://github.com/gschaffner>`_.
 v0.3.5  2022-11-21   - Fix regression clashing with ``flake8-rst-docstrings``.
 v0.3.4  2022-11-17   - Replaces ``setup.py`` with ``pyproject.toml`` for build.
 v0.3.3  2022-05-16   - Cope with line-length as string in pyproject.toml config.
