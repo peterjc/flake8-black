@@ -23,7 +23,7 @@ flake8-black
 Introduction
 ------------
 
-This is an MIT licensed `flake8 <https://gitlab.com/pycqa/flake8>`_ plugin
+This is an MIT licensed `flake8 <https://github.com/pycqa/flake8>`_ plugin
 for validating Python code style with the command line code formatting tool
 `black <https://github.com/python/black>`_. It is available to install from
 the `Python Package Index (PyPI) <https://pypi.org/project/flake8-black/>`_.
