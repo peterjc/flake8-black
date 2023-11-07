@@ -2,6 +2,6 @@
 # Our prefix is not single letter, so we need v3:
 flake8 >= 3.0.0
 
-# We need black, which in turn needs Python 3.6+
-black
+# We need black
+black >= 22.1.0
 tomli ; python_version < "3.11"

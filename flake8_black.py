@@ -19,7 +19,7 @@ from flake8 import utils as stdin_utils
 from flake8 import LOG
 
 
-__version__ = "0.3.6"
+__version__ = "0.3.7"
 
 black_prefix = "BLK"
 

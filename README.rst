@@ -68,7 +68,7 @@ you will *not* get an additional ``BLK`` error.
 Installation
 ------------
 
-Python 3.7 or later is required, but ``black`` can be used on Python code
+Python 3.8 or later is required, but ``black`` can be used on Python code
 written for older versions of Python.
 
 You can install ``flake8-black`` using ``pip``, which should install ``flake8``
@@ -162,6 +162,7 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
+v0.3.7  *Pending*    - Now tested on Python 3.8 though 3.12.
 v0.3.6  2022-12-13   - Use standard library ``tomllib`` on Python 3.11 onwards,
                        contribution from
                        `Ganden Schaffner <https://github.com/gschaffner>`_.
