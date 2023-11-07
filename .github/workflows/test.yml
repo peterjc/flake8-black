@@ -25,7 +25,7 @@ jobs:
         git reset --hard
     - name: Build packages, and install the wheel
       run: |
-        pip install build
+        pip install build black==23.9.1
         python -m build
         cd dist
         python -m pip install flake8_black-*.whl
