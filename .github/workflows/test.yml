@@ -37,5 +37,5 @@ jobs:
         # Unpack the tests from the sdist tar-ball
         # (want to confirm the manifest was complete)
         tar -zxvf dist/flake8_black-*.tar.gz
-        cd flake8-black-*/tests/
+        cd flake8_black-*/tests/
         WIN="$([ "$RUNNER_OS" == "Windows" ];echo $?)" bash ./run_tests.sh
