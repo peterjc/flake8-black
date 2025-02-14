@@ -50,7 +50,7 @@ class BadBlackConfig(ValueError):
 
 
 def load_black_mode(toml_filename=None):
-    """Load a black configuration TOML file (or return defaults) as black.Mode object."""
+    """Load black configuration TOML file (or return defaults) as black.Mode object."""
     if not toml_filename:
         return black.FileMode(
             target_versions=set(),
