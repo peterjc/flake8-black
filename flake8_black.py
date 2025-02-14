@@ -80,6 +80,9 @@ def load_black_mode(toml_filename=None):
         line_length=int(black_config.get("line_length", black.DEFAULT_LINE_LENGTH)),
         string_normalization=not black_config.get("skip_string_normalization", False),
         magic_trailing_comma=not black_config.get("skip_magic_trailing_comma", False),
+        preview=black_config.get("preview", False),
+        enable_unstable_feature=config.get(enable_unstable_feature, []),
+        unstable=config.get("unstable", False),
         preview=bool(black_config.get("preview", False)),
     )
 
