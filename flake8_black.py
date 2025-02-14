@@ -50,7 +50,7 @@ class BadBlackConfig(ValueError):
 
 
 def load_black_mode(toml_filename=None):
-    """Load a black configuration TOML file (or return defaults) as FileMode."""
+    """Load a black configuration TOML file (or return defaults) as black.Mode object."""
     if not toml_filename:
         return black.FileMode(
             target_versions=set(),
@@ -72,7 +72,7 @@ def load_black_mode(toml_filename=None):
 
     # Extract the fields we care about,
     # cast to int explicitly otherwise line length could be a string
-    return black.FileMode(
+    return black.Mode(
         target_versions={
             black.TargetVersion[val.upper()]
             for val in black_config.get("target_version", [])
