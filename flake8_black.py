@@ -136,7 +136,7 @@ class BlackStyleChecker:
 
     @classmethod
     def add_options(cls, parser):
-        """Adding black-config option."""
+        """Add black-config options."""
         parser.add_option(
             "--black-config",
             metavar="TOML_FILENAME",
@@ -154,7 +154,7 @@ class BlackStyleChecker:
 
     @classmethod
     def parse_options(cls, optmanager, options, extra_args):
-        """Adding black-config option."""
+        """Parse black-config options."""
         # We have one and only one flake8 plugin configuration
         if options.black_config is None:
             LOG.info("flake8-black: No black configuration set")
