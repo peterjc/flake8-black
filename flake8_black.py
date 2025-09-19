@@ -226,8 +226,8 @@ class BlackStyleChecker:
             except black.InvalidInput:
                 msg = "901 Invalid input."
             except (BadBlackConfig, tomllib.TOMLDecodeError):
-                # Seems in black 25.9.0 the TOMLDecodeError is triggered while finding project root,
-                # not trivial to get the path
+                # Seems in black 25.9.0 the TOMLDecodeError is triggered while
+                # finding project root, not trivial to get the path
                 msg = "997 Invalid TOML file"
             except Exception as err:
                 msg = "999 Unexpected exception: %r" % err
