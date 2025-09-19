@@ -1,1 +1,1 @@
-test_changes/hello_world_EOF.py:12:1: BLK100 Black would make changes.
+test_changes/hello_world_EOF.py:11:1: BLK100 Black would make changes.

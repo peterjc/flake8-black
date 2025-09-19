@@ -7,5 +7,4 @@ The point of this is the edit position will be at the very end of the file,
 which is a corner case.
 """
 
-
 print("Hello world")
