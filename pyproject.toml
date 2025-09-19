@@ -25,10 +25,10 @@ classifiers = [
   'Programming Language :: Python :: 3',
   'Programming Language :: Python :: 3 :: Only'
 ]
-requires-python = '>=3.8'
+requires-python = '>=3.9'
 dependencies = [
   'flake8>=3',
-  'black>=22.1.0,<25.9.0',
+  'black>=22.1.0',
   'tomli ; python_version < "3.11"',
 ]
 dynamic = ['version']

@@ -12,7 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        black-version: ["23.9.1", "25.9.0"]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -25,7 +26,7 @@ jobs:
         git reset --hard
     - name: Build packages, and install the wheel
       run: |
-        pip install build black==23.9.1
+        pip install build black==${{ matrix.black-version }}
         python -m build
         cd dist
         python -m pip install flake8_black-*.whl
