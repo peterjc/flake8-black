@@ -4,7 +4,4 @@ flake8 >= 3.0.0
 
 # We need black
 black >= 22.1.0
-# black 25.9.0 introduced a breaking change to the decode-bytes function
-# https://github.com/peterjc/flake8-black/issues/99
-black < 25.9.0
 tomli ; python_version < "3.11"
