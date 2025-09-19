@@ -1,1 +1,1 @@
-test_changes/black_preview.py:8:18: BLK100 Black would make changes.
+test_changes/black_preview.py:13:25: BLK100 Black would make changes.
