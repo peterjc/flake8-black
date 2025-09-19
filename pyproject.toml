@@ -28,7 +28,7 @@ classifiers = [
 requires-python = '>=3.8'
 dependencies = [
   'flake8>=3',
-  'black>=22.1.0',
+  'black>=22.1.0,<25.9.0',
   'tomli ; python_version < "3.11"',
 ]
 dynamic = ['version']
