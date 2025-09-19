@@ -1,11 +1,8 @@
 """Example showing future black string reformatting."""
 
-
-def hello():
-    """Print variations on 'Hello World'."""
-    # black v22.1.0 (first stable release) does not edit string literals,
-    # so the following is untouched unless enable preview mode:
-    print("hello " "world")  # noqa: ISC001
-
-
-hello()
+my_dict = {
+    "a key in my dict": a_very_long_variable  # noqa: F821
+    * and_a_very_long_function_call()  # noqa: F821
+    / 100000.0,
+    "another key": (short_value),  # noqa: F821
+}
