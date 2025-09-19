@@ -32,7 +32,9 @@ except TypeError:
 else:
     # Probably running older than black 25.9.0
     def decode_bytes_wrapper(src, mode):
-        return  black.decode_bytes(src)
+        """Proxy wrapper for backward compatibility."""
+        return black.decode_bytes(src)
+
 
 def find_diff_start(old_src, new_src):
     """Find line number and column number where text first differs."""
