@@ -68,7 +68,7 @@ you will *not* get an additional ``BLK`` error.
 Installation
 ------------
 
-Python 3.8 or later is required, but ``black`` can be used on Python code
+Python 3.9 or later is required, but ``black`` can be used on Python code
 written for older versions of Python.
 
 You can install ``flake8-black`` using ``pip``, which should install ``flake8``
@@ -162,7 +162,9 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
-v0.4.0  *Pending*    - Support the API change in ``decode_bytes`` in black 25.9.0.
+v0.4.0  *Pending*    - Now tested on Python 3.9 through 3.13, and black 23.9.1
+                       (as before) and black 25.9.0 (current latest).
+                     - Support the API change in ``decode_bytes`` in black 25.9.0.
                      - Error ``BLK997`` does not have the bad TOML filename.
 v0.3.7  2025-09-19   - Now tested on Python 3.8 though 3.13.
                      - Using ``black.Mode`` class name in place of legacy alias
