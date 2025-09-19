@@ -19,7 +19,7 @@ from flake8 import utils as stdin_utils
 from flake8 import LOG
 
 
-__version__ = "0.3.7"
+__version__ = "0.4.0"
 
 black_prefix = "BLK"
 
@@ -225,8 +225,10 @@ class BlackStyleChecker:
                 return
             except black.InvalidInput:
                 msg = "901 Invalid input."
-            except BadBlackConfig as err:
-                msg = "997 Invalid TOML file: %s" % err
+            except (BadBlackConfig, tomllib.TOMLDecodeError):
+                # Seems in black 25.9.0 the TOMLDecodeError is triggered while finding project root,
+                # not trivial to get the path
+                msg = "997 Invalid TOML file"
             except Exception as err:
                 msg = "999 Unexpected exception: %r" % err
             else:
