@@ -162,9 +162,10 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
-v0.3.7  *Pending*    - Now tested on Python 3.8 though 3.13.
+v0.3.7  2025-09-19   - Now tested on Python 3.8 though 3.13.
                      - Using `black.Mode` class name in place of legacy alias
                        `black.FileMode` from beta release era.
+                     - Does not work on black 25.9.0 onwards.
 v0.3.6  2022-12-13   - Use standard library ``tomllib`` on Python 3.11 onwards,
                        contribution from
                        `Ganden Schaffner <https://github.com/gschaffner>`_.
