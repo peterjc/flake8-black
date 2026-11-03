@@ -162,8 +162,8 @@ Version History
 ======= ============ ===========================================================
 Version Release date Changes
 ------- ------------ -----------------------------------------------------------
-v0.4.0  *Pending*    - Now tested on Python 3.9 through 3.13, and black 23.9.1
-                       (as before) and black 25.9.0 (current latest).
+v0.4.0  2026-11-03   - Now tested on Python 3.10 through 3.15, and black 23.9.1
+                       (as before) and black 26.10.1 (current latest).
                      - Support the API change in ``decode_bytes`` in black 25.9.0.
                      - Error ``BLK997`` does not have the bad TOML filename.
 v0.3.7  2025-09-19   - Now tested on Python 3.8 though 3.13.
