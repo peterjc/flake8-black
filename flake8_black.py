@@ -18,7 +18,7 @@ import black
 from flake8 import utils as stdin_utils
 from flake8 import LOG
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 black_prefix = "BLK"
 
@@ -244,9 +244,9 @@ class BlackStyleChecker:
             except Exception as err:
                 msg = "999 Unexpected exception: %r" % err
             else:
-                assert (
-                    new_code != source
-                ), "Black made changes without raising NothingChanged"
+                assert new_code != source, (
+                    "Black made changes without raising NothingChanged"
+                )
                 line, col = find_diff_start(source, new_code)
                 line += 1  # Strange as col seems to be zero based?
                 msg = "100 Black would make changes."
