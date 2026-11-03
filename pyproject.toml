@@ -6,7 +6,8 @@ build-backend = 'setuptools.build_meta'
 name = 'flake8-black'
 description = 'flake8 plugin to call black as a code style validator'
 keywords = ['black', 'formatting', 'style', 'flake8']
-license = {text = 'MIT'}
+license = "MIT"
+license-files = ["LICENSE.rst"]
 readme = 'README.rst'
 authors = [
   {name = 'Peter J. A. Cock'}
@@ -17,7 +18,6 @@ maintainers = [
 classifiers = [
   'Intended Audience :: Developers',
   'Framework :: Flake8',
-  'License :: OSI Approved :: MIT License',
   'Operating System :: OS Independent',
   'Topic :: Software Development :: Libraries :: Python Modules',
   'Topic :: Software Development :: Quality Assurance',
